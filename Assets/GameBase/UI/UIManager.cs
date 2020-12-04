@@ -50,7 +50,7 @@ using UnityEngine;
 
         private int _tapBlockerCallStackCount = 0;
 
-        private GameObject _tapBlocker;
+        public GameObject _tapBlocker;
 
         /// <summary>
         /// TapBlockerのStackを増加させ、タップブロッカーを表す。

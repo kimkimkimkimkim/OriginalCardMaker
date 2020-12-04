@@ -32,6 +32,7 @@ public class ResourceManager : SingletonMonoBehaviour<ResourceManager>
     /// <summary>
     /// Awake
     /// </summary>
+    /*
     protected override void Awake()
     {
         base.Awake();
@@ -39,6 +40,7 @@ public class ResourceManager : SingletonMonoBehaviour<ResourceManager>
 
         DontDestroyOnLoad(gameObject);
     }
+    */
 
     #endregion Monobehavior Func
 
@@ -62,7 +64,7 @@ public class ResourceManager : SingletonMonoBehaviour<ResourceManager>
 
     //public LocalCatalog Catalog { get; private set; }
 
-    public const string ASSET_PATH_PREFIX = "Assets/Contents/KoiniwaResources";
+    public const string ASSET_PATH_PREFIX = "Assets/Contents/Resources";
 
     /// <summary>
     /// 差分ダウンロード確認ダイアログを表示させるための、差分コンテンツのサイズ（Mbyte）
