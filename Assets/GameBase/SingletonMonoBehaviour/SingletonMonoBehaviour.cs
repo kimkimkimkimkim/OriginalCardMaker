@@ -9,7 +9,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBe
                 instance = (T)FindObjectOfType(typeof(T));
 
                 if (instance == null) {
-                    KoiniwaLogger.Log(typeof(T) + " does not exist, create.");
+                    Debug.Log(typeof(T) + " does not exist, create.");
 
                     GameObject obj = new GameObject();
 #if UNITY_EDITOR
