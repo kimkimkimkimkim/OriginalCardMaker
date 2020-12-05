@@ -9,7 +9,21 @@ using UnityEngine.UI;
 [ResourcePath("UI/Dialog/Dialog-CardCreate")]
 public class CardCreateDialogUIScript : DialogBase {
 
+    [SerializeField] protected Button _closeButton;
+
     public override void Init(DialogInfo info) {
+        var onClickClose = (Action)info.param["onClickClose"];
+
+        _closeButton.OnClickAsObservable()
+            .SelectMany(_ => UIManager.Instance.CloseDialogObservable())
+            .Do(_ => {
+                if (onClickClose != null)
+                {
+                    onClickClose();
+                    onClickClose = null;
+                }
+            })
+            .Subscribe();
     }
 
     public override void Back(DialogInfo info) {

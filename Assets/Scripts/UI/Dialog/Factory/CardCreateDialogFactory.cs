@@ -10,6 +10,10 @@ public class CardCreateDialogFactory
     {
         return Observable.Create<CardCreateDialogResponse>(observer => {
             var param = new Dictionary<string, object>();
+            param.Add("onClickClose", new Action(() => {
+                observer.OnNext(new CardCreateDialogResponse());
+                observer.OnCompleted();
+            }));
             UIManager.Instance.OpenDialog<CardCreateDialogUIScript>(param, true);
             return Disposable.Empty;
         });
