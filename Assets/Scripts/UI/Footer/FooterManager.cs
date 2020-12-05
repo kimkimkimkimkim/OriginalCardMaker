@@ -18,6 +18,7 @@ public class FooterManager : MonoBehaviour
     [SerializeField] protected Text _homeButtonText;
     [SerializeField] protected Text _boxButtonText;
 
+    private const float ANIMATION_TIME = 0.2f;
     private const float SELECTED_ICON_POSITION_Y = 70.0f;
     private const float UNSELECTED_ICON_POSITION_Y = 0.0f;
 
@@ -44,18 +45,19 @@ public class FooterManager : MonoBehaviour
             .Subscribe();
 
         // ホームボタンを押したことにする
-        _homeButton.onClick.Invoke();
+        // 確実に動作させるため1フレーム後に実行
+        Observable.NextFrame().Do(_ => _homeButton.onClick.Invoke()).Subscribe();
     }
 
     private IObservable<Unit> PlaySelectedAnimationObservable(GameObject buttonBase, Image buttonIcon, Text buttonText)
     {
         // 選択マーク
         var selectedMarkSequence = DOTween.Sequence()
-            .Append(_selectedMark.transform.DOLocalMove(buttonBase.transform.localPosition, 0.5f));
+            .Append(_selectedMark.transform.DOLocalMove(buttonBase.transform.localPosition, ANIMATION_TIME));
 
         // アイコン
         var iconSequence = DOTween.Sequence()
-            .Append(buttonIcon.transform.DOLocalMoveY(SELECTED_ICON_POSITION_Y, 0.5f));
+            .Append(buttonIcon.transform.DOLocalMoveY(SELECTED_ICON_POSITION_Y, ANIMATION_TIME));
 
         buttonText.gameObject.SetActive(true);
         return DOTween.Sequence()
@@ -69,7 +71,7 @@ public class FooterManager : MonoBehaviour
     {
         // アイコン
         var iconSequence = DOTween.Sequence()
-            .Append(buttonIcon.transform.DOLocalMoveY(UNSELECTED_ICON_POSITION_Y, 0.5f));
+            .Append(buttonIcon.transform.DOLocalMoveY(UNSELECTED_ICON_POSITION_Y, ANIMATION_TIME));
 
         buttonText.gameObject.SetActive(false);
         return DOTween.Sequence()
