@@ -289,6 +289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _windowFrame: {fileID: 7580770588854054149}
   BackButtonDisabled: 1
+  _createCardButton: {fileID: 4505823573077069164}
 --- !u!1 &7580770588854054149
 GameObject:
   m_ObjectHideFlags: 0
