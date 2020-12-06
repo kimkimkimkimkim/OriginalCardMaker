@@ -4,7 +4,7 @@
     public NameColor nameColor { get; set; }
     public NameSize nameSize { get; set; }
     public Frame frame { get; set; }
-    public MonsterAttribute monsterAttribute { get; set; }
+    public MonsterAttribute attribute { get; set; }
     public MonsterLevel monsterLevel { get; set; }
     public string attack { get; set; }
     public string defence { get; set; }

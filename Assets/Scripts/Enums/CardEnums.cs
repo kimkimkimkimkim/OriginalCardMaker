@@ -92,13 +92,26 @@ public enum Frame
 
 public enum MonsterAttribute
 {
-    Darkness,
-    Light,
-    Earth,
-    Water,
-    Flame,
-    Wind,
-    God
+    [Description("闇")]
+    Darkness = 0,
+
+    [Description("光")]
+    Light = 1,
+
+    [Description("地")]
+    Earth = 2,
+
+    [Description("水")]
+    Water = 3,
+
+    [Description("炎")]
+    Flame = 4,
+
+    [Description("風")]
+    Wind = 5,
+
+    [Description("神")]
+    God = 6
 }
 
 public enum MonsterLevel
