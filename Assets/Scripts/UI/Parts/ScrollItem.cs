@@ -2,6 +2,7 @@
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using GameBase;
 
 public class ScrollItem : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class ScrollItem : MonoBehaviour
     [SerializeField] protected Image _image;
     [SerializeField] protected Text _text;
 
+    public Button button { get { return _button; } }
+    public Image image { get { return _image; } }
     private Action _onClickCallback;
     private IDisposable _onClickObservable;
 
@@ -22,7 +25,7 @@ public class ScrollItem : MonoBehaviour
         _onClickCallback = callbackAction;
         if (_onClickObservable != null) _onClickObservable.Dispose();
 
-        _onClickObservable = _button.OnClickAsObservable()
+        _onClickObservable = _button.OnClickIntentAsObservable()
             .Where(_ => _onClickCallback != null)
             .Do(_ => _onClickCallback())
             .Subscribe();

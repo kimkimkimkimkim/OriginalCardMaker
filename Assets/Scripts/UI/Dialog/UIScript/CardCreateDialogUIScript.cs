@@ -11,8 +11,12 @@ using GameBase;
 public class CardCreateDialogUIScript : DialogBase {
 
     [SerializeField] protected Button _closeButton;
+    [SerializeField] protected Transform _cardItemBase;
     [SerializeField] protected InfiniteScroll _frameInfiniteScroll;
 
+
+    private CardInfo card = new CardInfo();
+    private CardItem cardItem;
     private List<Frame> targetFrameList = Enum.GetValues(typeof(Frame)).Cast<Frame>().ToList();
 
     public override void Init(DialogInfo info) {
@@ -29,7 +33,14 @@ public class CardCreateDialogUIScript : DialogBase {
             })
             .Subscribe();
 
+        CreateCardItem();
         SetInputScrollView();
+    }
+
+    private void CreateCardItem()
+    {
+        cardItem = UIManager.Instance.CreateContent<CardItem>(_cardItemBase);
+        cardItem.SetCardInfo(card);
     }
 
     private void SetInputScrollView()
@@ -49,7 +60,14 @@ public class CardCreateDialogUIScript : DialogBase {
         var frame = targetFrameList[index];
 
         var name = TextUtil.GetDescriptionAttribute(frame);
+        var isSelected = card.frame == frame;
         scrollItem.SetText(name);
+        scrollItem.SetImage(isSelected);
+        scrollItem.SetOnClickAction(() =>
+        {
+            cardItem.UpdateFrameInfo(frame);
+            cardItem.UpdateFrameUI();
+        });
     }
 
     public override void Back(DialogInfo info) {

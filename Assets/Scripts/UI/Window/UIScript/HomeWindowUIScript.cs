@@ -11,7 +11,7 @@ public class HomeWindowUIScript : WindowBase
 
     public override void Init(WindowInfo info)
     {
-        _createCardButton.OnClickAsObservable()
+        _createCardButton.OnClickIntentAsObservable()
             .SelectMany(_ => CardCreateDialogFactory.Create(new CardCreateDialogRequest() { }))
             .Subscribe();
     }

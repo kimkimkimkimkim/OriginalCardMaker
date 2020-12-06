@@ -18,76 +18,76 @@ public enum NameSize
 public enum Frame
 {
     [Description("通常モンスター")]
-    NormalMonster,
+    NormalMonster = 0,
 
     [Description("効果モンスター")]
-    EffectMonster,
+    EffectMonster = 1,
 
     [Description("儀式モンスター")]
-    RitualMonster,
+    RitualMonster = 2,
 
     [Description("融合モンスター")]
-    FusionMonster,
+    FusionMonster = 3,
 
     [Description("シンクロモンスター")]
-    SynchroMonster,
+    SynchroMonster = 4,
 
     [Description("エクシーズモンスター")]
-    XyzMonster,
+    XyzMonster = 5,
 
     [Description("通常ペンデュラム")]
-    PendulumNormalMonster,
+    PendulumNormalMonster = 6,
 
     [Description("効果ペンデュラム")]
-    PendulumEffectMonster,
+    PendulumEffectMonster = 7,
 
     [Description("儀式ペンデュラム")]
-    PendulumRitualMonster,
+    PendulumRitualMonster = 8,
 
     [Description("融合ペンデュラム")]
-    PendulumFusionMonster,
+    PendulumFusionMonster = 9,
 
     [Description("シンクロペンデュラム")]
-    PendulumSynchroMonster,
+    PendulumSynchroMonster = 10,
 
     [Description("エクシーズペンデュラム")]
-    PendulumXyzMonster,
+    PendulumXyzMonster = 11,
 
     [Description("リンクモンスター")]
-    LinkMonster,
+    LinkMonster = 12,
 
     [Description("通常魔法")]
-    NormalSpell,
+    NormalSpell = 13,
 
     [Description("速攻魔法")]
-    QuickPlaySpell,
+    QuickPlaySpell = 14,
 
     [Description("永続魔法")]
-    ContinuousSpell,
+    ContinuousSpell = 15,
 
     [Description("装備魔法")]
-    EquipSpell,
+    EquipSpell = 16,
 
     [Description("儀式魔法")]
-    RitualSpell,
+    RitualSpell = 17,
 
     [Description("フィールド魔法")]
-    FieldSpell,
+    FieldSpell = 18,
 
     [Description("通常罠")]
-    NormalTrap,
+    NormalTrap = 19,
 
     [Description("永続罠")]
-    ContinuousTrap,
+    ContinuousTrap = 20,
 
     [Description("カウンター罠")]
-    CounterTrap,
+    CounterTrap = 21,
 
     [Description("トークン")]
-    Token,
+    Token = 22,
 
     [Description("トークン(記述可)")]
-    TokenOptional
+    TokenOptional = 23
 }
 
 public enum MonsterAttribute
