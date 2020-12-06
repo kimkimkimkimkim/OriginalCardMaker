@@ -44,19 +44,19 @@ public class CardCreateDialogUIScript : DialogBase {
     private void CreateInputPanel()
     {
         // Frame
-        var frameInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
+        var frameInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
         frameInputPanel.RefreshPanel<Frame>(cardItem);
 
         // Attribute
-        var attributeInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
+        var attributeInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
         attributeInputPanel.RefreshPanel<MonsterAttribute>(cardItem);
 
         // Level
-        var levelInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
+        var levelInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
         levelInputPanel.RefreshPanel<MonsterLevel>(cardItem);
 
         // LinkPosition
-        var linkPositionInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
+        var linkPositionInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
         linkPositionInputPanel.RefreshPanel<LinkPosition>(cardItem,true);
     }
 

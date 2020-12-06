@@ -5,7 +5,7 @@ using GameBase;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardCreateInputPanelBase<T> where T : Enum
+public class CardCreateEnumInputPanelBase<T> where T : Enum
 { 
     private CardItem cardItem;
     private InfiniteScroll infiniteScroll;
