@@ -12,10 +12,7 @@ public class CardCreateDialogUIScript : DialogBase {
 
     [SerializeField] protected Button _closeButton;
     [SerializeField] protected Transform _cardItemBase;
-    [SerializeField] protected InfiniteScroll _frameInfiniteScroll;
-    [SerializeField] protected ToggleGroup _frameToggleGroup;
-    [SerializeField] protected InfiniteScroll _attributeInfiniteScroll;
-    [SerializeField] protected ToggleGroup _attributeToggleGroup;
+    [SerializeField] protected Transform _inputPanelBase;
 
     private CardItem cardItem;
     private List<Frame> targetFrameList = Enum.GetValues(typeof(Frame)).Cast<Frame>().ToList();
@@ -36,7 +33,8 @@ public class CardCreateDialogUIScript : DialogBase {
             .Subscribe();
 
         CreateCardItem();
-        SetInputScrollView();
+        CreateInputPanel();
+
     }
 
     private void CreateCardItem()
@@ -44,68 +42,16 @@ public class CardCreateDialogUIScript : DialogBase {
         cardItem = UIManager.Instance.CreateContent<CardItem>(_cardItemBase);
     }
 
-    private void SetInputScrollView()
+    private void CreateInputPanel()
     {
-        RefreshFramePanel();
-        RefreshAttributePanel();
+        // Frame
+        var frameInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
+        frameInputPanel.RefreshPanel<Frame>(cardItem);
+
+        // Attribute
+        var attributeInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
+        attributeInputPanel.RefreshPanel<MonsterAttribute>(cardItem);
     }
-
-    #region Frame
-    private void RefreshFramePanel() {
-        _frameInfiniteScroll.Clear();
-        if (targetFrameList.Count > 0) _frameInfiniteScroll.Init(targetFrameList.Count, OnUpdateFrameItem);
-    }
-
-    private void OnUpdateFrameItem(int index, GameObject item)
-    {
-        if ((targetFrameList.Count <= index) || (index < 0)) return;
-        var scrollItem = item.GetComponent<CardCreateToggleScrollItem>();
-        var frame = targetFrameList[index];
-
-        var name = TextUtil.GetDescriptionAttribute(frame);
-        var card = cardItem.GetCardInfo();
-        var isSelected = card.frame == frame;
-
-        scrollItem.SetToggleGroup(_frameToggleGroup);
-        scrollItem.SetSelectionState(isSelected);
-        scrollItem.SetText(name);
-        scrollItem.SetOnClickAction(() =>
-        {
-            scrollItem.SetSelectionState(true);
-            cardItem.UpdateFrameInfo(frame);
-            cardItem.UpdateFrameUI();
-        });
-    }
-    #endregion Frame
-
-    #region Attribute
-    private void RefreshAttributePanel()
-    {
-        _attributeInfiniteScroll.Clear();
-        if (targetAttributeList.Count > 0) _attributeInfiniteScroll.Init(targetAttributeList.Count, OnUpdateAttributeItem);
-    }
-
-    private void OnUpdateAttributeItem(int index, GameObject item)
-    {
-        if ((targetAttributeList.Count <= index) || (index < 0)) return;
-        var scrollItem = item.GetComponent<CardCreateToggleScrollItem>();
-        var attribute = targetAttributeList[index];
-
-        var name = TextUtil.GetDescriptionAttribute(attribute);
-        var card = cardItem.GetCardInfo();
-        var isSelected = card.attribute == attribute;
-
-        scrollItem.SetToggleGroup(_attributeToggleGroup);
-        scrollItem.SetSelectionState(isSelected);
-        scrollItem.SetText(name);
-        scrollItem.SetOnClickAction(() =>
-        {
-            scrollItem.SetSelectionState(true);
-            cardItem.UpdateAttributeInfo(attribute);
-            cardItem.UpdateAttributeUI();
-        });
-    }
-    #endregion Attribute
 
     public override void Back(DialogInfo info) {
     }

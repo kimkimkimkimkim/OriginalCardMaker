@@ -15,6 +15,7 @@ public enum NameSize
     Small
 }
 
+[Description("枠の種類")]
 public enum Frame
 {
     [Description("通常モンスター")]
@@ -90,6 +91,7 @@ public enum Frame
     TokenOptional = 23
 }
 
+[Description("属性")]
 public enum MonsterAttribute
 {
     [Description("闇")]

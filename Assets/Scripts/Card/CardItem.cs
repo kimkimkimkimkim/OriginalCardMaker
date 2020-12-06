@@ -27,6 +27,7 @@ public class CardItem : MonoBehaviour
     public void UpdateAllUI()
     {
         UpdateFrameUI();
+        UpdateAttributeUI();
     }
 
     public void UpdateFrameInfo(Frame frame)
