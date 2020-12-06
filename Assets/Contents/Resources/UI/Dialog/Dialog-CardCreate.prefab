@@ -225,8 +225,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _frameSpriteList: []
   _attributeSpriteList: []
+  _levelSpriteList: []
+  _rankSpriteList: []
+  _linkPositionImageList: []
   _frameImage: {fileID: 0}
   _attributeImage: {fileID: 0}
+  _levelImage: {fileID: 0}
+  _linkPositionBase: {fileID: 0}
 --- !u!1 &2256399409221076145
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,10 +420,6 @@ MonoBehaviour:
   _closeButton: {fileID: 6101868311694506463}
   _cardItemBase: {fileID: 6317492636634266823}
   _inputPanelBase: {fileID: 8922710865642831328}
-  _frameInfiniteScroll: {fileID: 0}
-  _frameToggleGroup: {fileID: 0}
-  _attributeInfiniteScroll: {fileID: 0}
-  _attributeToggleGroup: {fileID: 0}
 --- !u!1 &2990803542850075869
 GameObject:
   m_ObjectHideFlags: 0

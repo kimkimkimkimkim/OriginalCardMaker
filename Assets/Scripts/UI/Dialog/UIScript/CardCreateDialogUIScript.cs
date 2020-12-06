@@ -47,6 +47,13 @@ public class CardCreateDialogUIScript : DialogBase {
         var frameInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
         frameInputPanel.RefreshPanel<Frame>(cardItem);
 
+        // Name
+        var nameInputPanel = UIManager.Instance.CreateContent<CardCreateStringInputPanel>(_inputPanelBase);
+        nameInputPanel.RefreshInputPanel("カード名",text => {
+            cardItem.UpdateNameInfo(text);
+            cardItem.UpdateNameUI();
+        });
+
         // Attribute
         var attributeInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
         attributeInputPanel.RefreshPanel<MonsterAttribute>(cardItem);

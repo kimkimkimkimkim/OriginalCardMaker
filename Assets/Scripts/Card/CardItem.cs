@@ -16,6 +16,7 @@ public class CardItem : MonoBehaviour
     [SerializeField] protected Image _frameImage;
     [SerializeField] protected Image _attributeImage;
     [SerializeField] protected Image _levelImage;
+    [SerializeField] protected Text _nameText;
     [SerializeField] protected GameObject _linkPositionBase;
 
     private CardInfo card = new CardInfo();
@@ -33,6 +34,7 @@ public class CardItem : MonoBehaviour
     public void UpdateAllUI()
     {
         UpdateFrameUI();
+        UpdateNameUI();
         UpdateAttributeUI();
         UpdateLevelUI();
         UpdateLinkPositionUI();
@@ -50,6 +52,18 @@ public class CardItem : MonoBehaviour
         UpdateLevelUI();
     }
     #endregion Frame
+
+    #region Name
+    public void UpdateNameInfo(string name)
+    {
+        card.name = name;
+    }
+
+    public void UpdateNameUI()
+    {
+        _nameText.text = card.name;
+    }
+    #endregion Name
 
     #region Attribute
     public void UpdateAttributeInfo(MonsterAttribute attribute)
