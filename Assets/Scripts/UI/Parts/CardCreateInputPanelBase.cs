@@ -58,6 +58,10 @@ public class CardCreateInputPanelBase<T> where T : Enum
         {
             return (int)card.attribute == Convert.ToInt32(cardEnum);
         }
+        else if (cardEnum is MonsterLevel)
+        {
+            return (int)card.level == Convert.ToInt32(cardEnum);
+        }
 
         return false;
     }
@@ -74,6 +78,11 @@ public class CardCreateInputPanelBase<T> where T : Enum
         {
             cardItem.UpdateAttributeInfo((MonsterAttribute)value);
             cardItem.UpdateAttributeUI();
+        }
+        else if (cardEnum is MonsterLevel)
+        {
+            cardItem.UpdateLevelInfo((MonsterLevel)value);
+            cardItem.UpdateLevelUI();
         }
     }
 }

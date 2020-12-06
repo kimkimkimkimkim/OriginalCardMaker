@@ -15,8 +15,6 @@ public class CardCreateDialogUIScript : DialogBase {
     [SerializeField] protected Transform _inputPanelBase;
 
     private CardItem cardItem;
-    private List<Frame> targetFrameList = Enum.GetValues(typeof(Frame)).Cast<Frame>().ToList();
-    private List<MonsterAttribute> targetAttributeList = Enum.GetValues(typeof(MonsterAttribute)).Cast<MonsterAttribute>().ToList();
 
     public override void Init(DialogInfo info) {
         var onClickClose = (Action)info.param["onClickClose"];
@@ -40,6 +38,7 @@ public class CardCreateDialogUIScript : DialogBase {
     private void CreateCardItem()
     {
         cardItem = UIManager.Instance.CreateContent<CardItem>(_cardItemBase);
+        cardItem.UpdateAllUI();
     }
 
     private void CreateInputPanel()
@@ -51,6 +50,10 @@ public class CardCreateDialogUIScript : DialogBase {
         // Attribute
         var attributeInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
         attributeInputPanel.RefreshPanel<MonsterAttribute>(cardItem);
+
+        // Level
+        var levelInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
+        levelInputPanel.RefreshPanel<MonsterLevel>(cardItem);
     }
 
     public override void Back(DialogInfo info) {

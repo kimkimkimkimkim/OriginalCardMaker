@@ -116,21 +116,47 @@ public enum MonsterAttribute
     God = 6
 }
 
+[Description("レベル・ランク")]
 public enum MonsterLevel
 {
-    Zero,
-    One,
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Sevel,
-    Eight,
-    Nine,
-    Ten,
-    Elevel,
-    Twelve
+    [Description("0")]
+    Zero = 0,
+
+    [Description("1")]
+    One = 1,
+
+    [Description("2")]
+    Two = 2,
+
+    [Description("3")]
+    Three = 3,
+
+    [Description("4")]
+    Four = 4,
+
+    [Description("5")]
+    Five = 5,
+
+    [Description("6")]
+    Six = 6,
+
+    [Description("7")]
+    Sevel = 7,
+
+    [Description("8")]
+    Eight = 8,
+
+    [Description("9")]
+    Nine = 9,
+
+    [Description("10")]
+    Ten = 10,
+
+    [Description("11")]
+    Elevel = 11,
+
+    [Description("12")]
+    Twelve = 12
 }
 
 public enum TextSize

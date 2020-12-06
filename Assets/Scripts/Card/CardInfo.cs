@@ -5,7 +5,7 @@
     public NameSize nameSize { get; set; }
     public Frame frame { get; set; }
     public MonsterAttribute attribute { get; set; }
-    public MonsterLevel monsterLevel { get; set; }
+    public MonsterLevel level { get; set; }
     public string attack { get; set; }
     public string defence { get; set; }
     public string monsterText { get; set; }
