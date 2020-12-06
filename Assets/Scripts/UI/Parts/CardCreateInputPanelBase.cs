@@ -8,20 +8,20 @@ using UnityEngine.UI;
 public class CardCreateInputPanelBase<T> where T : Enum
 { 
     private CardItem cardItem;
-    private Text text;
     private InfiniteScroll infiniteScroll;
     private ToggleGroup toggleGroup;
     private List<T> targetList = new List<T>();
+    private bool isMultipleSelection;
 
-    public void RefreshPanel(CardItem cardItem,Text text,InfiniteScroll infiniteScroll,ToggleGroup toggleGroup)
+    public void RefreshPanel(CardItem cardItem,Text text,InfiniteScroll infiniteScroll,ToggleGroup toggleGroup, bool isMultipleSelection = false)
     {
         this.cardItem = cardItem;
-        this.text = text;
         this.infiniteScroll = infiniteScroll;
         this.toggleGroup = toggleGroup;
-        targetList = Enum.GetValues(typeof(T)).Cast<T>().ToList();
+        this.targetList = Enum.GetValues(typeof(T)).Cast<T>().ToList();
+        this.isMultipleSelection = isMultipleSelection;
 
-        this.text.text = TextUtil.GetDescriptionAttribute<T>();
+        text.text = TextUtil.GetDescriptionAttribute<T>();
         infiniteScroll.Clear();
         if (targetList.Count > 0) infiniteScroll.Init(targetList.Count, OnUpdateItem);
     }
@@ -36,31 +36,44 @@ public class CardCreateInputPanelBase<T> where T : Enum
         var card = cardItem.GetCardInfo();
         var isSelected = IsSelected(cardEnum);
 
-        scrollItem.SetToggleGroup(toggleGroup);
+        if(!isMultipleSelection)scrollItem.SetToggleGroup(toggleGroup);
         scrollItem.SetSelectionState(isSelected);
         scrollItem.SetText(name);
         scrollItem.SetOnClickAction(() =>
         {
-            scrollItem.SetSelectionState(true);
+            if (isMultipleSelection) 
+            {
+                scrollItem.SetSelectionState(!scrollItem.GetSelectionState());
+            }
+            else
+            {
+                scrollItem.SetSelectionState(true);
+            }
+
             UpdateCardItem(cardEnum);
         });
     }
 
     private bool IsSelected(T cardEnum)
     {
-
         var card = cardItem.GetCardInfo();
+        var value = Convert.ToInt32(cardEnum);
+
         if (cardEnum is Frame)
         {
-            return (int)card.frame == Convert.ToInt32(cardEnum);
+            return (int)card.frame == value;
         }
         else if (cardEnum is MonsterAttribute)
         {
-            return (int)card.attribute == Convert.ToInt32(cardEnum);
+            return (int)card.attribute == value;
         }
         else if (cardEnum is MonsterLevel)
         {
-            return (int)card.level == Convert.ToInt32(cardEnum);
+            return (int)card.level == value;
+        }
+        else if(cardEnum is LinkPosition)
+        {
+            return card.IsSelectedLinkPosition((LinkPosition)value);
         }
 
         return false;
@@ -83,6 +96,11 @@ public class CardCreateInputPanelBase<T> where T : Enum
         {
             cardItem.UpdateLevelInfo((MonsterLevel)value);
             cardItem.UpdateLevelUI();
+        }
+        else if(cardEnum is LinkPosition)
+        {
+            cardItem.ToggleLinkPositionInfo((LinkPosition)value);
+            cardItem.UpdateLinkPositionUI();
         }
     }
 }

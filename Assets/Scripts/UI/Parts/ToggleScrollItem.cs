@@ -14,4 +14,9 @@ public class ToggleScrollItem : ScrollItem
     {
         _toggle.isOn = isSelected;
     }
+
+    public bool GetSelectionState()
+    {
+        return _toggle.isOn;
+    }
 }

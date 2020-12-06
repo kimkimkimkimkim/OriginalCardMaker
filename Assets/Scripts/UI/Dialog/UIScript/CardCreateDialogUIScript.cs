@@ -54,6 +54,10 @@ public class CardCreateDialogUIScript : DialogBase {
         // Level
         var levelInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
         levelInputPanel.RefreshPanel<MonsterLevel>(cardItem);
+
+        // LinkPosition
+        var linkPositionInputPanel = UIManager.Instance.CreateContent<CardCreateInputPanel>(_inputPanelBase);
+        linkPositionInputPanel.RefreshPanel<LinkPosition>(cardItem,true);
     }
 
     public override void Back(DialogInfo info) {

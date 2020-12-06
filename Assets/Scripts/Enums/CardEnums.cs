@@ -221,14 +221,30 @@ public enum LinkNum
     Eight
 }
 
+[Description("リンクの位置")]
 public enum LinkPosition
 {
-    UpperLeft,
-    Up,
-    UpperRight,
-    Left,
-    Right,
-    LowerLeft,
-    Down,
-    LowerRight
+    [Description("左上")]
+    UpperLeft = 0,
+
+    [Description("上")]
+    Up = 1,
+
+    [Description("右上")]
+    UpperRight = 2,
+
+    [Description("左")]
+    Left = 3,
+
+    [Description("右")]
+    Right = 4,
+
+    [Description("左下")]
+    LowerLeft = 5,
+
+    [Description("下")]
+    Down = 6,
+
+    [Description("右下")]
+    LowerRight = 7
 }

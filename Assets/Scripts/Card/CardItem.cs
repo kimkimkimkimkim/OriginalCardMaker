@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GameBase;
 using UnityEngine;
@@ -11,9 +12,11 @@ public class CardItem : MonoBehaviour
     [SerializeField] protected Sprite[] _attributeSpriteList;
     [SerializeField] protected Sprite[] _levelSpriteList;
     [SerializeField] protected Sprite[] _rankSpriteList;
+    [SerializeField] protected Image[] _linkPositionImageList;
     [SerializeField] protected Image _frameImage;
     [SerializeField] protected Image _attributeImage;
     [SerializeField] protected Image _levelImage;
+    [SerializeField] protected GameObject _linkPositionBase;
 
     private CardInfo card = new CardInfo();
 
@@ -32,8 +35,10 @@ public class CardItem : MonoBehaviour
         UpdateFrameUI();
         UpdateAttributeUI();
         UpdateLevelUI();
+        UpdateLinkPositionUI();
     }
 
+    #region Frame
     public void UpdateFrameInfo(Frame frame)
     {
         card.frame = frame;
@@ -44,7 +49,9 @@ public class CardItem : MonoBehaviour
 
         UpdateLevelUI();
     }
+    #endregion Frame
 
+    #region Attribute
     public void UpdateAttributeInfo(MonsterAttribute attribute)
     {
         card.attribute = attribute;
@@ -54,7 +61,9 @@ public class CardItem : MonoBehaviour
     {
         _attributeImage.sprite = _attributeSpriteList[(int)card.attribute];
     }
+    #endregion Attribute
 
+    #region Level
     public void UpdateLevelInfo(MonsterLevel level)
     {
         card.level = level;
@@ -68,4 +77,22 @@ public class CardItem : MonoBehaviour
 
         _levelImage.sprite = spriteList[(int)card.level];
     }
+    #endregion Level
+
+    #region LinkPosition
+    public void ToggleLinkPositionInfo(LinkPosition linkPosition)
+    {
+        card.ToggleLinkPosition(linkPosition);
+    }
+
+    public void UpdateLinkPositionUI()
+    {
+        foreach(LinkPosition linkPosition in Enum.GetValues(typeof(LinkPosition)))
+        {
+            var index = (int)linkPosition;
+            var isSelected = card.IsSelectedLinkPosition(linkPosition);
+            _linkPositionImageList[index].gameObject.SetActive(isSelected);
+        }
+    }
+    #endregion LinkPosition
 }
