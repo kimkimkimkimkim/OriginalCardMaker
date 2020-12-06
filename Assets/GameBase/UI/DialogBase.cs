@@ -4,8 +4,10 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-    public abstract class DialogBase : MonoBehaviour {
+namespace GameBase
+{
+    public abstract class DialogBase : MonoBehaviour
+    {
         private const float MOVING_TIME = 0.2f;
         private const float FRAME_OUT_ANCHOR_POSITION = 1620.0f;
         private const float FRAME_IN_ANCHOR_POSOTION = 46.0f;
@@ -39,15 +41,18 @@ using UnityEngine.UI;
         /// <param name="info"></param>
         public abstract void Close(DialogInfo info);
 
-        public virtual void BackButton() {
+        public virtual void BackButton()
+        {
             UIManager.Instance.CloseDialog();
         }
 
-        public void PlayOpenAnimation(DialogAnimationType animationType) {
+        public void PlayOpenAnimation(DialogAnimationType animationType)
+        {
             if (_dialogFrame == null) return;
             var rect = _dialogFrame.GetComponent<RectTransform>();
             var canvas = _dialogFrame.GetComponent<CanvasGroup>();
-            switch (animationType) {
+            switch (animationType)
+            {
                 case DialogAnimationType.Center:
                     rect.localScale = rect.localScale * OPEN_LOCAL_SCALE;
                     rect.DOScale(Vector3.one, MOVING_TIME * 2).SetEase(Ease.OutBack);
@@ -65,12 +70,14 @@ using UnityEngine.UI;
             }
         }
 
-        public IObservable<Unit> PlayCloseAnimationObservable(DialogAnimationType animationType) {
+        public IObservable<Unit> PlayCloseAnimationObservable(DialogAnimationType animationType)
+        {
             if (_dialogFrame == null) return Observable.ReturnUnit();
             var rect = _dialogFrame.GetComponent<RectTransform>();
             var canvas = _dialogFrame.GetComponent<CanvasGroup>();
             var position = 0.0f;
-            switch (animationType) {
+            switch (animationType)
+            {
                 case DialogAnimationType.Center:
                     var scale = rect.localScale * CLOSE_LOCAL_SCALE;
                     rect.DOScale(scale, MOVING_TIME).SetEase(Ease.InOutBack);
@@ -89,10 +96,11 @@ using UnityEngine.UI;
         }
     }
 
-    public enum DialogAnimationType {
+    public enum DialogAnimationType
+    {
         None = 0,
         Center = 1,
         Right = 2,
         Left = 3,
     }
-
+}

@@ -2,6 +2,7 @@
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using GameBase;
 
 [ResourcePath("UI/Window/Window-Home")]
 public class HomeWindowUIScript : WindowBase

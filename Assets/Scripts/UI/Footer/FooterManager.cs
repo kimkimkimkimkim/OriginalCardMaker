@@ -5,6 +5,7 @@ using DG.Tweening;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using GameBase;
 
 public class FooterManager : MonoBehaviour
 {

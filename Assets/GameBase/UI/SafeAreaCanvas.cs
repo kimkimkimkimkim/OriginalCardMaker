@@ -1,18 +1,23 @@
 ﻿using UnityEngine;
 
+namespace GameBase
+{
     /// <summary>
     /// canvas直下の〇〇Baseにアタッチすることで
     /// 端末ごとのsafeAreaを考慮したUIサイズに自動で変更します
     /// </summary>
-    public class SafeAreaCanvas : MonoBehaviour {
+    public class SafeAreaCanvas : MonoBehaviour
+    {
         private RectTransform _panel;
 
-        private void Awake() {
+        private void Awake()
+        {
             _panel = GetComponent<RectTransform>();
             UpdateSafeArea();
         }
 
-        private void UpdateSafeArea() {
+        private void UpdateSafeArea()
+        {
             var safeAreaRect = Screen.safeArea;
             var anchorMin = safeAreaRect.position;
             var anchorMax = safeAreaRect.position + safeAreaRect.size;
@@ -26,3 +31,4 @@
             _panel.anchorMax = anchorMax;
         }
     }
+}

@@ -1,4 +1,5 @@
 ﻿using System;
+using GameBase;
 
 [ResourcePath("UI/Window/Window-Box")]
 public class BoxWindowUIScript : WindowBase

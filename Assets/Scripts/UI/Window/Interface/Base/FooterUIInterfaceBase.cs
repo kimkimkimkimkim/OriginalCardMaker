@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using GameBase;
 
 public class FooterUIRequestBase
 {

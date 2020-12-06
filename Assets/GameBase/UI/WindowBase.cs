@@ -3,7 +3,10 @@ using System;
 using UniRx;
 using UnityEngine;
 
-    public abstract class WindowBase : MonoBehaviour {
+namespace GameBase
+{
+    public abstract class WindowBase : MonoBehaviour
+    {
         // TODO 定義値をUnity上で操作できるようにする
         private const float MOVING_TIME = 0.2f;
         private const float FRAME_OUT_POSITION = 10.0f;
@@ -34,7 +37,8 @@ using UnityEngine;
         /// <param name="info"></param>
         public abstract void Close(WindowInfo info);
 
-        public virtual void BackButton() {
+        public virtual void BackButton()
+        {
             if (BackButtonDisabled)
                 return;
 
@@ -47,10 +51,12 @@ using UnityEngine;
         /// </summary>
         public bool BackButtonDisabled;
 
-        public void PlayOpenAnimation(WindowAnimationType animationType) {
+        public void PlayOpenAnimation(WindowAnimationType animationType)
+        {
             if (_windowFrame == null) return;
             var rect = _windowFrame.GetComponent<RectTransform>();
-            switch (animationType) {
+            switch (animationType)
+            {
                 case WindowAnimationType.GardenWindow:
                     rect.position += new Vector3(0.0f, -FRAME_OUT_POSITION, 0.0f);
                     rect.DOLocalMoveY(0.0f, MOVING_TIME).SetEase(Ease.InOutQuart);
@@ -69,12 +75,14 @@ using UnityEngine;
             }
         }
 
-        public IObservable<Unit> PlayCloseAnimationObservable(WindowAnimationType animationType) {
+        public IObservable<Unit> PlayCloseAnimationObservable(WindowAnimationType animationType)
+        {
             if (_windowFrame == null) return Observable.ReturnUnit();
             var rect = _windowFrame.GetComponent<RectTransform>();
             var canvas = _windowFrame.GetComponent<CanvasGroup>();
             var position = 0.0f;
-            switch (animationType) {
+            switch (animationType)
+            {
                 case WindowAnimationType.GardenWindow:
                     position = UIManager.Instance.windowParent.position.y - FRAME_OUT_POSITION;
                     return rect.DOMoveY(position, MOVING_TIME).SetEase(Ease.InOutExpo).OnCompleteAsObservable().AsUnitObservable();
@@ -91,9 +99,11 @@ using UnityEngine;
         }
     }
 
-    public enum WindowAnimationType {
+    public enum WindowAnimationType
+    {
         None = 0,
         GardenWindow = 1,
         FooterWindowRight = 2,
         FooterWindowLeft = 3,
     }
+}

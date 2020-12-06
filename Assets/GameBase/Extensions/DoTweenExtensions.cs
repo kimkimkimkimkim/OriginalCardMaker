@@ -2,28 +2,35 @@
 using System;
 using DG.Tweening;
 
-static public partial class DOTweenExtensions
+namespace GameBase
 {
-    static public IObservable<Tween> OnCompleteAsObservable(this Tween tweener)
+    static public partial class DOTweenExtensions
     {
-        return Observable.Create<Tween>(o => {
-            tweener.OnComplete(() => {
-                o.OnNext(tweener);
-                o.OnCompleted();
+        static public IObservable<Tween> OnCompleteAsObservable(this Tween tweener)
+        {
+            return Observable.Create<Tween>(o =>
+            {
+                tweener.OnComplete(() =>
+                {
+                    o.OnNext(tweener);
+                    o.OnCompleted();
+                });
+                return Disposable.Create(() => tweener.Kill());
             });
-            return Disposable.Create(() => tweener.Kill());
-        });
-    }
+        }
 
-    static public IObservable<Sequence> PlayAsObservable(this Sequence sequence)
-    {
-        return Observable.Create<Sequence>(o => {
-            sequence.OnComplete(() => {
-                o.OnNext(sequence);
-                o.OnCompleted();
+        static public IObservable<Sequence> PlayAsObservable(this Sequence sequence)
+        {
+            return Observable.Create<Sequence>(o =>
+            {
+                sequence.OnComplete(() =>
+                {
+                    o.OnNext(sequence);
+                    o.OnCompleted();
+                });
+                sequence.Play();
+                return Disposable.Create(() => sequence.Kill());
             });
-            sequence.Play();
-            return Disposable.Create(() => sequence.Kill());
-        });
+        }
     }
 }

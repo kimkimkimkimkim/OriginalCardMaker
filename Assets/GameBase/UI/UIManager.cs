@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using GameBase;
 
-    public class UIManager : SingletonMonoBehaviour<UIManager> {
+namespace GameBase
+{
+    public class UIManager : SingletonMonoBehaviour<UIManager>
+    {
         public const int FIXED_RES_HEIGHT = 1920;
         public const int FIXED_RES_WIDTH = 1080;
 
@@ -25,8 +29,10 @@ using UnityEngine;
 
         public bool isSkipTutorial;
 
-        public float ScaledDpi {
-            get {
+        public float ScaledDpi
+        {
+            get
+            {
                 const float DUMMY_DPI = 520f;//DPIがとれないときのため
                 var dpi = Screen.dpi > 0 ? Screen.dpi : DUMMY_DPI;
                 return dpi / screenScale;
@@ -34,7 +40,8 @@ using UnityEngine;
         }
         public string deviceToken { get; private set; }
 
-        protected override void Awake() {
+        protected override void Awake()
+        {
             base.Awake();
             if (base.IsDestroyed()) return;
 
@@ -55,7 +62,8 @@ using UnityEngine;
         /// <summary>
         /// TapBlockerのStackを増加させ、タップブロッカーを表す。
         /// </summary>
-        public void ShowTapBlocker() {
+        public void ShowTapBlocker()
+        {
             _tapBlockerCallStackCount += 1;
             _tapBlocker.SetActive(true);
             _tapBlocker.transform.SetAsLastSibling();
@@ -64,11 +72,13 @@ using UnityEngine;
         /// <summary>
         /// TapBlockerのStackを減少させ、０になったときはタップブロッカーを隠す。
         /// </summary>
-        public void TryHideTapBlocker() {
+        public void TryHideTapBlocker()
+        {
             //MEMO：強制的に_tapBlockerCallStackCountを0に変更したりするなど、
             //Stackを無視してTapBlockerが隠すなどの処理を絶対に追加しないこと。
             _tapBlockerCallStackCount -= 1;
-            if (_tapBlocker != null && _tapBlockerCallStackCount <= 0) {
+            if (_tapBlocker != null && _tapBlockerCallStackCount <= 0)
+            {
                 _tapBlockerCallStackCount = 0;
                 _tapBlocker.SetActive(false);
             }
@@ -82,8 +92,10 @@ using UnityEngine;
 
         public DialogInfo currentDialogInfo { get; set; }
 
-        public bool isVisibleUiAtLast {
-            get {
+        public bool isVisibleUiAtLast
+        {
+            get
+            {
                 return (isWindowAtLast || isDialogAtLast);
             }
         }
@@ -96,7 +108,8 @@ using UnityEngine;
 
         #region Window Method
 
-        public T OpenWindow<T>(Dictionary<string, object> param = null, bool previousActive = false, WindowAnimationType animationType = WindowAnimationType.GardenWindow) where T : WindowBase {
+        public T OpenWindow<T>(Dictionary<string, object> param = null, bool previousActive = false, WindowAnimationType animationType = WindowAnimationType.GardenWindow) where T : WindowBase
+        {
 
             /*
             if (param != null && param.ContainsKey("propertyGroupType")) {
@@ -123,11 +136,14 @@ using UnityEngine;
 
             currentUIBase.PlayOpenAnimation(animationType);
 
-            if (currentWindowInfo == null) {
+            if (currentWindowInfo == null)
+            {
                 //make head
                 createdStateInfo.parent = null;
                 currentWindowInfo = createdStateInfo;
-            } else {
+            }
+            else
+            {
                 currentWindowInfo.child = createdStateInfo;
                 createdStateInfo.parent = currentWindowInfo;
 
@@ -143,7 +159,8 @@ using UnityEngine;
             return currentUIBase;
         }
 
-        public void OpenWindowAsync<T>(Dictionary<string, object> param = null, bool previousActive = false, Action<T> callback = null) where T : WindowBase {
+        public void OpenWindowAsync<T>(Dictionary<string, object> param = null, bool previousActive = false, Action<T> callback = null) where T : WindowBase
+        {
             /*
             if (param != null && param.ContainsKey("propertyGroupType")) {
                 var propertyGroupType = (PropertyGroupType)param["propertyGroupType"];
@@ -153,14 +170,16 @@ using UnityEngine;
             }
             */
 
-            if (currentWindowInfo != null) {
+            if (currentWindowInfo != null)
+            {
                 isWindowAtLast = true;
                 //InputSource.isEnabled = !isVisibleUiAtLast;
             }
 
             ShowTapBlocker();
 
-            CreateContentAsync<T>(null, (loadedWindow) => {
+            CreateContentAsync<T>(null, (loadedWindow) =>
+            {
                 GameObject obj = loadedWindow.gameObject;
                 obj.transform.SetAsFirstSibling();
 
@@ -168,11 +187,14 @@ using UnityEngine;
                 createdStateInfo.component = loadedWindow;
                 createdStateInfo.param = param;
 
-                if (currentWindowInfo == null) {
+                if (currentWindowInfo == null)
+                {
                     //make head
                     createdStateInfo.parent = null;
                     currentWindowInfo = createdStateInfo;
-                } else {
+                }
+                else
+                {
                     currentWindowInfo.child = createdStateInfo;
                     createdStateInfo.parent = currentWindowInfo;
 
@@ -187,14 +209,17 @@ using UnityEngine;
 
                 TryHideTapBlocker();
 
-                if (callback != null) {
+                if (callback != null)
+                {
                     callback(loadedWindow);
                 }
             });
         }
 
-        public T StackWindow<T>(Dictionary<string, object> param = null, bool previousActive = false) where T : WindowBase {
-            if (currentWindowInfo != null) {
+        public T StackWindow<T>(Dictionary<string, object> param = null, bool previousActive = false) where T : WindowBase
+        {
+            if (currentWindowInfo != null)
+            {
                 isWindowAtLast = true;
                 //InputSource.isEnabled = !isVisibleUiAtLast;
             }
@@ -208,11 +233,14 @@ using UnityEngine;
             createdStateInfo.component = currentUIBase;
             createdStateInfo.param = param;
 
-            if (currentWindowInfo == null) {
+            if (currentWindowInfo == null)
+            {
                 //make head
                 createdStateInfo.parent = null;
                 currentWindowInfo = createdStateInfo;
-            } else {
+            }
+            else
+            {
                 currentWindowInfo.child = createdStateInfo;
                 createdStateInfo.parent = currentWindowInfo;
 
@@ -228,8 +256,10 @@ using UnityEngine;
             return currentUIBase;
         }
 
-        public void CloseWindow(bool openLastWindow = true, bool forceCloseParent = false, WindowAnimationType animationType = WindowAnimationType.GardenWindow) {
-            if (currentWindowInfo == null || (currentWindowInfo.parent == null && forceCloseParent == false)) {
+        public void CloseWindow(bool openLastWindow = true, bool forceCloseParent = false, WindowAnimationType animationType = WindowAnimationType.GardenWindow)
+        {
+            if (currentWindowInfo == null || (currentWindowInfo.parent == null && forceCloseParent == false))
+            {
                 return;
             }
 
@@ -245,34 +275,41 @@ using UnityEngine;
             currentWindowInfo.parent = null;
             currentWindowInfo.child = null;
 
-            if (parentContrentStateInfo != null) {
+            if (parentContrentStateInfo != null)
+            {
                 currentWindowInfo = parentContrentStateInfo;
                 currentWindowInfo.child = null;
                 currentWindowInfo.component.gameObject.SetActive(true);
 
                 if (openLastWindow) currentWindowInfo.component.Open(currentWindowInfo);
 
-                if (currentWindowInfo.parent == null) {
+                if (currentWindowInfo.parent == null)
+                {
                     isWindowAtLast = false;
                     //InputSource.isEnabled = !isVisibleUiAtLast;
                 }
-            } else {
+            }
+            else
+            {
                 currentWindowInfo = null;
                 isWindowAtLast = false;
                 //InputSource.isEnabled = !isVisibleUiAtLast;
             }
         }
 
-        public void CloseAllWindow(bool isForce = false, WindowAnimationType animationType = WindowAnimationType.None) {
+        public void CloseAllWindow(bool isForce = false, WindowAnimationType animationType = WindowAnimationType.None)
+        {
             if (isForce)
                 while (currentWindowInfo != null)
                     CloseWindow(true, true, animationType);
 
-            if (currentWindowInfo == null || currentWindowInfo.parent == null) {
+            if (currentWindowInfo == null || currentWindowInfo.parent == null)
+            {
                 return;
             }
 
-            while (isWindowAtLast) {
+            while (isWindowAtLast)
+            {
                 var isLast = (currentWindowInfo.parent != null && currentWindowInfo.parent.parent == null);
                 CloseWindow(isLast, false, animationType);
             }
@@ -281,7 +318,8 @@ using UnityEngine;
         /// <summary>
         /// Closeアクションを必ず次のチェーン処理の前に呼び出すために1フレームの遅延を挟むObservable
         /// </summary>
-        public IObservable<Unit> CloseWindowObservable(WindowAnimationType animationType = WindowAnimationType.GardenWindow) {
+        public IObservable<Unit> CloseWindowObservable(WindowAnimationType animationType = WindowAnimationType.GardenWindow)
+        {
             return Observable.ReturnUnit()
                 .Do(_ => CloseWindow(true, false, animationType))
                 .SelectMany(_ => Observable.NextFrame());
@@ -290,7 +328,8 @@ using UnityEngine;
 
         #region Popup Method
 
-        public T OpenDialog<T>(Dictionary<string, object> param = null, bool displayingOnDialog = false, DialogAnimationType animationType = DialogAnimationType.Center) where T : DialogBase {
+        public T OpenDialog<T>(Dictionary<string, object> param = null, bool displayingOnDialog = false, DialogAnimationType animationType = DialogAnimationType.Center) where T : DialogBase
+        {
             /*
             if (param != null && param.ContainsKey("propertyGroupType")) {
                 var propertyGroupType = (PropertyGroupType)param["propertyGroupType"];
@@ -311,11 +350,14 @@ using UnityEngine;
             createdStateInfo.component = currentUIBase;
             createdStateInfo.param = param;
 
-            if (currentDialogInfo == null) {
+            if (currentDialogInfo == null)
+            {
                 //make head
                 createdStateInfo.parent = null;
                 currentDialogInfo = createdStateInfo;
-            } else {
+            }
+            else
+            {
                 currentDialogInfo.child = createdStateInfo;
                 createdStateInfo.parent = currentDialogInfo;
 
@@ -333,12 +375,14 @@ using UnityEngine;
             return currentUIBase;
         }
 
-        public void OpenDialogAsync<T>(Dictionary<string, object> param = null, bool displayingOnDialog = false, Action<T> callback = null) where T : DialogBase {
+        public void OpenDialogAsync<T>(Dictionary<string, object> param = null, bool displayingOnDialog = false, Action<T> callback = null) where T : DialogBase
+        {
             ShowTapBlocker();
             isDialogAtLast = true;
             //InputSource.isEnabled = !isVisibleUiAtLast;
 
-            CreateContentAsync<T>(dialogParant, loadedDialog => {
+            CreateContentAsync<T>(dialogParant, loadedDialog =>
+            {
                 GameObject obj = loadedDialog.gameObject;
                 obj.transform.SetAsLastSibling();
 
@@ -346,11 +390,14 @@ using UnityEngine;
                 createdStateInfo.component = loadedDialog;
                 createdStateInfo.param = param;
 
-                if (currentDialogInfo == null) {
+                if (currentDialogInfo == null)
+                {
                     //make head
                     createdStateInfo.parent = null;
                     currentDialogInfo = createdStateInfo;
-                } else {
+                }
+                else
+                {
                     currentDialogInfo.child = createdStateInfo;
                     createdStateInfo.parent = currentDialogInfo;
 
@@ -365,15 +412,18 @@ using UnityEngine;
 
                 TryHideTapBlocker();
 
-                if (callback != null) {
+                if (callback != null)
+                {
                     callback(loadedDialog);
                 }
             });
         }
 
-        public void CloseDialog(bool isForce = false) {
+        public void CloseDialog(bool isForce = false)
+        {
 
-            if (currentDialogInfo == null) {
+            if (currentDialogInfo == null)
+            {
                 return;
             }
 
@@ -382,23 +432,29 @@ using UnityEngine;
 
             // ダイアログアニメーション
             var closeObject = currentDialogInfo.component.gameObject;
-            if (isForce == false) {
+            if (isForce == false)
+            {
                 currentDialogInfo.component.PlayCloseAnimationObservable(currentDialogInfo.animationType)
                     .Do(_ => Destroy(closeObject))
                     .Subscribe();
-            } else {
+            }
+            else
+            {
                 Destroy(closeObject);
             }
 
             currentDialogInfo.parent = null;
             currentDialogInfo.child = null;
 
-            if (parentContrentStateInfo != null) {
+            if (parentContrentStateInfo != null)
+            {
                 currentDialogInfo = parentContrentStateInfo;
                 currentDialogInfo.child = null;
                 currentDialogInfo.component.gameObject.SetActive(true);
                 currentDialogInfo.component.Open(currentDialogInfo);
-            } else {
+            }
+            else
+            {
                 currentDialogInfo = null;
             }
 
@@ -419,7 +475,8 @@ using UnityEngine;
             }
             */
 
-            if (currentDialogInfo == null) {
+            if (currentDialogInfo == null)
+            {
                 isDialogAtLast = false;
                 //InputSource.isEnabled = !isVisibleUiAtLast;
             }
@@ -428,7 +485,8 @@ using UnityEngine;
         /// <summary>
         /// Closeアクションを必ず次のチェーン処理の前に呼び出すために1フレームの遅延を挟むObservable
         /// </summary>
-        public IObservable<Unit> CloseDialogObservable() {
+        public IObservable<Unit> CloseDialogObservable()
+        {
             return Observable.ReturnUnit()
                 .Do(_ => CloseDialog())
                 .SelectMany(_ => Observable.NextFrame());
@@ -467,10 +525,12 @@ using UnityEngine;
 
         #endregion Popup Method
 
-        public T CreateContent<T>(Transform parent = null) where T : MonoBehaviour {
+        public T CreateContent<T>(Transform parent = null) where T : MonoBehaviour
+        {
             ResourcePathAttribute attr = (ResourcePathAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(ResourcePathAttribute));
 #if UNITY_EDITOR
-            if (attr == null) {
+            if (attr == null)
+            {
                 Debug.LogError("Error :: " + typeof(T).Name);
             }
 #endif
@@ -484,12 +544,14 @@ using UnityEngine;
 
             T component = null;
 
-            if (obj != null) {
+            if (obj != null)
+            {
                 component = obj.GetComponent<T>();
             }
 
 #if UNITY_EDITOR
-            if (obj == null || component == null) {
+            if (obj == null || component == null)
+            {
                 Debug.LogError("UI Manager load failure :: " + typeof(T).Name);
                 return null;
             }
@@ -497,10 +559,12 @@ using UnityEngine;
             return component;
         }
 
-        public void CreateContentAsync<T>(Transform parent, Action<T> callback = null, Func<bool> isContinuableCallback = null) where T : MonoBehaviour {
+        public void CreateContentAsync<T>(Transform parent, Action<T> callback = null, Func<bool> isContinuableCallback = null) where T : MonoBehaviour
+        {
             ResourcePathAttribute attr = (ResourcePathAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(ResourcePathAttribute));
 #if UNITY_EDITOR
-            if (attr == null) {
+            if (attr == null)
+            {
                 Debug.LogError("Error :: " + typeof(T).Name);
                 return;
             }
@@ -510,39 +574,48 @@ using UnityEngine;
 
             ResourceManager.Instance.LoadAssetAsyncObservable<GameObject>(path)
                 .CatchIgnore((Exception e) => Debug.LogError(e))
-                .Do(loadedObj => {
-                    if (loadedObj != null) {
+                .Do(loadedObj =>
+                {
+                    if (loadedObj != null)
+                    {
                         if (parent == null) return;
-                        if (isContinuableCallback != null) {
+                        if (isContinuableCallback != null)
+                        {
                             if (!isContinuableCallback()) return;
                         }
                         var obj = Instantiate(loadedObj, parent);
-                        if (obj != null) {
+                        if (obj != null)
+                        {
                             obj.name = loadedObj.name;
 
                             component = obj.GetComponent<T>();
                         }
 
 #if UNITY_EDITOR
-                        if (obj == null || component == null) {
+                        if (obj == null || component == null)
+                        {
                             Debug.LogError("UI Manager load failure :: " + typeof(T).Name);
                         }
 #endif
                     }
                 })
                 .CatchIgnore((Exception e) => Debug.LogError(e))
-                .Do(_ => {
-                    if ((callback != null) && (component != null)) {
+                .Do(_ =>
+                {
+                    if ((callback != null) && (component != null))
+                    {
                         callback(component);
                     }
                 })
                 .Subscribe(_ => { }, (Exception ex) => Debug.LogError(ex));
         }
 
-        public T LoadPrefab<T>() where T : MonoBehaviour {
+        public T LoadPrefab<T>() where T : MonoBehaviour
+        {
             ResourcePathAttribute attr = (ResourcePathAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(ResourcePathAttribute));
 #if UNITY_EDITOR
-            if (attr == null) {
+            if (attr == null)
+            {
                 Debug.LogError("Error :: " + typeof(T).Name);
             }
 #endif
@@ -551,27 +624,33 @@ using UnityEngine;
             GameObject tmp = ResourceManager.Instance.LoadAsset<GameObject>(path);
             T component = null;
 
-            if (tmp != null) {
+            if (tmp != null)
+            {
                 component = tmp.GetComponent<T>();
             }
 
 #if UNITY_EDITOR
-            if (tmp == null || component == null) {
+            if (tmp == null || component == null)
+            {
                 Debug.LogError("UI Manager load failure :: " + typeof(T).Name);
             }
 #endif
             return component;
         }
 
-        public void DestroyAll() {
+        public void DestroyAll()
+        {
             CloseDialog(true);
             CloseAllWindow(true);
         }
 
-        public void SetWindowBlocksRayCasts(bool isOn) {
-            if (windowParent != null) {
+        public void SetWindowBlocksRayCasts(bool isOn)
+        {
+            if (windowParent != null)
+            {
                 var canvasGroup = windowParent.gameObject.GetComponent<CanvasGroup>();
-                if (canvasGroup != null) {
+                if (canvasGroup != null)
+                {
                     canvasGroup.blocksRaycasts = isOn;
                 }
             }
@@ -581,7 +660,8 @@ using UnityEngine;
 
     #region UI Info Class
 
-    public class WindowInfo {
+    public class WindowInfo
+    {
         public WindowInfo parent;
 
         public WindowInfo child;
@@ -590,13 +670,18 @@ using UnityEngine;
 
         public Dictionary<string, object> param;
 
-        public WindowInfo FindParent<T>() {
+        public WindowInfo FindParent<T>()
+        {
             var temp = this;
 
-            while (temp != null) {
-                if (temp.component is T) {
+            while (temp != null)
+            {
+                if (temp.component is T)
+                {
                     break;
-                } else {
+                }
+                else
+                {
                     temp = temp.parent;
                 }
             }
@@ -604,19 +689,23 @@ using UnityEngine;
             return temp;
         }
 
-        public void DestoryRecursively() {
-            if (child != null) {
+        public void DestoryRecursively()
+        {
+            if (child != null)
+            {
                 child.DestoryRecursively();
             }
 
             UIManager.Instance.currentWindowInfo = parent;
 
-            if (parent == null) {
+            if (parent == null)
+            {
                 UIManager.Instance.isWindowAtLast = false;
                 //InputSource.isEnabled = !UIManager.Instance.isVisibleUiAtLast;
             }
 
-            if (component != null) {
+            if (component != null)
+            {
                 component.Back(this);
                 component.Close(this);
                 parent = null;
@@ -627,7 +716,8 @@ using UnityEngine;
         }
     }
 
-    public class DialogInfo {
+    public class DialogInfo
+    {
         public DialogInfo parent;
 
         public DialogInfo child;
@@ -638,13 +728,18 @@ using UnityEngine;
 
         public DialogAnimationType animationType;
 
-        public DialogInfo FindParent<T>() {
+        public DialogInfo FindParent<T>()
+        {
             var temp = this;
 
-            while (temp != null) {
-                if (temp.component is T) {
+            while (temp != null)
+            {
+                if (temp.component is T)
+                {
                     break;
-                } else {
+                }
+                else
+                {
                     temp = temp.parent;
                 }
             }
@@ -652,19 +747,23 @@ using UnityEngine;
             return temp;
         }
 
-        public void DestoryRecursively() {
-            if (child != null) {
+        public void DestoryRecursively()
+        {
+            if (child != null)
+            {
                 child.DestoryRecursively();
             }
 
-            if (parent == null) {
+            if (parent == null)
+            {
                 UIManager.Instance.isDialogAtLast = false;
                 //InputSource.isEnabled = !UIManager.Instance.isVisibleUiAtLast;
             }
 
             UIManager.Instance.currentDialogInfo = parent;
 
-            if (component != null) {
+            if (component != null)
+            {
                 component.Back(this);
                 component.Close(this);
 
@@ -676,3 +775,4 @@ using UnityEngine;
         }
     }
     #endregion UI Info Class
+}
