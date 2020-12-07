@@ -35,6 +35,7 @@ public class CardItem : MonoBehaviour
     {
         UpdateFrameUI();
         UpdateNameUI();
+        UpdateNameColorUI();
         UpdateAttributeUI();
         UpdateLevelUI();
         UpdateLinkPositionUI();
@@ -109,4 +110,35 @@ public class CardItem : MonoBehaviour
         }
     }
     #endregion LinkPosition
+
+    #region NameColor
+    public void UpdateNameColorInfo(NameColor nameColor)
+    {
+        card.nameColor = nameColor;
+    }
+
+    public void UpdateNameColorUI()
+    {
+        _nameText.color = GetColor(card.nameColor);
+    }
+
+    private Color GetColor(NameColor nameColor)
+    {
+        switch (nameColor)
+        {
+            case NameColor.Black:
+                return new Color(0.0f, 0.0f, 0.0f);
+            case NameColor.White:
+                return new Color(0.95f, 0.95f, 0.95f);
+            case NameColor.Shilver:
+                return new Color(0.77f, 0.77f, 0.77f);
+            case NameColor.Gold:
+                return new Color(0.77f, 0.77f, 0.0f);
+            case NameColor.Red:
+                return new Color(0.77f, 0.05f, 0.05f);
+            default:
+                return new Color(0.0f, 0.0f, 0.0f);
+        }
+    }
+    #endregion NameColor
 }

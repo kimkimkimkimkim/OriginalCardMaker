@@ -1,18 +1,32 @@
 ﻿using System.ComponentModel;
 
+[Description("文字色(カード名)")]
 public enum NameColor
 {
+    [Description("黒")]
     Black = 0,
-    White,
-    Shilver,
-    Gold,
-    Red
+
+    [Description("白")]
+    White = 1,
+
+    [Description("銀")]
+    Shilver = 2,
+
+    [Description("金")]
+    Gold = 3,
+
+    [Description("赤")]
+    Red = 4
 }
 
+[Description("文字サイズ(カード名)")]
 public enum NameSize
 {
-    Medium,
-    Small
+    [Description("中")]
+    Medium = 0,
+
+    [Description("小")]
+    Small = 1
 }
 
 [Description("枠の種類")]
@@ -159,66 +173,150 @@ public enum MonsterLevel
     Twelve = 12
 }
 
+[Description("文字サイズ(テキスト)")]
 public enum TextSize
 {
-    Large,
-    Medium,
-    Small
+    [Description("大")]
+    Large = 0,
+
+    [Description("中")]
+    Medium = 1,
+
+    [Description("小")]
+    Small = 2
 }
 
+[Description("文字サイズ(ペンデュラム)")]
 public enum PendulumTextSize
 {
-    Medium,
-    Small
+    [Description("中")]
+    Medium = 0,
+
+    [Description("小")]
+    Small = 1
 }
 
+[Description("Pスケール(青)")]
 public enum PendulumNumBlue
 {
-    Zero,
-    One,
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Sevel,
-    Eight,
-    Nine,
-    Ten,
-    Elevel,
-    Twelve,
-    Thirteen
+    [Description("0")]
+    Zero = 0,
+
+    [Description("1")]
+    One = 1,
+
+    [Description("2")]
+    Two = 2,
+
+    [Description("3")]
+    Three = 3,
+
+    [Description("4")]
+    Four = 4,
+
+    [Description("5")]
+    Five = 5,
+
+    [Description("6")]
+    Six = 6,
+
+    [Description("7")]
+    Sevel = 7,
+
+    [Description("8")]
+    Eight = 8,
+
+    [Description("9")]
+    Nine = 9,
+
+    [Description("10")]
+    Ten = 10,
+
+    [Description("11")]
+    Elevel = 11,
+
+    [Description("12")]
+    Twelve = 12,
+
+    [Description("13")]
+    Thirteen = 13
 }
 
+[Description("Pスケール(赤)")]
 public enum PendulumNumRed
 {
-    Zero,
-    One,
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Sevel,
-    Eight,
-    Nine,
-    Ten,
-    Elevel,
-    Twelve,
-    Thirteen
+    [Description("0")]
+    Zero = 0,
+
+    [Description("1")]
+    One = 1,
+
+    [Description("2")]
+    Two = 2,
+
+    [Description("3")]
+    Three = 3,
+
+    [Description("4")]
+    Four = 4,
+
+    [Description("5")]
+    Five = 5,
+
+    [Description("6")]
+    Six = 6,
+
+    [Description("7")]
+    Sevel = 7,
+
+    [Description("8")]
+    Eight = 8,
+
+    [Description("9")]
+    Nine = 9,
+
+    [Description("10")]
+    Ten = 10,
+
+    [Description("11")]
+    Elevel = 11,
+
+    [Description("12")]
+    Twelve = 12,
+
+    [Description("13")]
+    Thirteen = 13
 }
 
+[Description("リンク")]
 public enum LinkNum
 {
-    Zero,
-    One,
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Seven,
-    Eight
+    [Description("0")]
+    Zero = 0,
+
+    [Description("1")]
+    One = 1,
+
+    [Description("2")]
+    Two = 2,
+
+    [Description("3")]
+    Three = 3,
+
+    [Description("4")]
+    Four = 4,
+
+    [Description("5")]
+    Five = 5,
+
+    [Description("6")]
+    Six = 6,
+
+    [Description("7")]
+    Sevel = 7,
+
+    [Description("8")]
+    Eight = 8,
 }
 
 [Description("リンクの位置")]

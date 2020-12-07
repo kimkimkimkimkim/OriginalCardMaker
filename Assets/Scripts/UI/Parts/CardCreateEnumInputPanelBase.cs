@@ -75,6 +75,10 @@ public class CardCreateEnumInputPanelBase<T> where T : Enum
         {
             return card.IsSelectedLinkPosition((LinkPosition)value);
         }
+        else if(cardEnum is NameColor)
+        {
+            return (int)card.nameColor == value;
+        }
 
         return false;
     }
@@ -101,6 +105,11 @@ public class CardCreateEnumInputPanelBase<T> where T : Enum
         {
             cardItem.ToggleLinkPositionInfo((LinkPosition)value);
             cardItem.UpdateLinkPositionUI();
+        }
+        else if(cardEnum is NameColor)
+        {
+            cardItem.UpdateNameColorInfo((NameColor)value);
+            cardItem.UpdateNameColorUI();
         }
     }
 }
