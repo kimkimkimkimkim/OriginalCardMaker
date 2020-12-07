@@ -54,6 +54,10 @@ public class CardCreateDialogUIScript : DialogBase {
         var nameColorInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
         nameColorInputPanel.RefreshPanel<NameColor>(cardItem);
 
+        // NameSize
+        var nameSizeInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
+        nameSizeInputPanel.RefreshPanel<NameSize>(cardItem);
+
         // Frame
         var frameInputPanel = UIManager.Instance.CreateContent<CardCreateEnumInputPanel>(_inputPanelBase);
         frameInputPanel.RefreshPanel<Frame>(cardItem);
