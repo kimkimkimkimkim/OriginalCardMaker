@@ -105,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _windowFrame: {fileID: 1778400453696555238}
   BackButtonDisabled: 1
+  _cameraRollButton: {fileID: 0}
 --- !u!1 &8437423918130735381
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +185,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BOX
+  m_Text: Box
 --- !u!114 &6721617241706252707
 MonoBehaviour:
   m_ObjectHideFlags: 0

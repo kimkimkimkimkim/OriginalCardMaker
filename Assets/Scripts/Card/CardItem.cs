@@ -12,6 +12,8 @@ public class CardItem : MonoBehaviour
     [SerializeField] protected Sprite[] _rankSpriteList;
     [SerializeField] protected Image[] _linkPositionImageList;
     [SerializeField] protected Sprite[] _linkNumSpriteList;
+    [SerializeField] protected RawImage _rawImage;
+    [SerializeField] protected RawImage _xyzRawImage;
     [SerializeField] protected GameObject _statusBase;
     [SerializeField] protected GameObject _linkStatusBase;
     [SerializeField] protected GameObject _linkPositionBase;
@@ -56,8 +58,10 @@ public class CardItem : MonoBehaviour
             case Frame.RitualMonster:
             case Frame.FusionMonster:
             case Frame.SynchroMonster:
-            case Frame.XyzMonster:
             case Frame.TokenOptional:
+            case Frame.XyzMonster:
+                _rawImage.gameObject.SetActive(true);
+                _xyzRawImage.gameObject.SetActive(false);
                 _frameImage.gameObject.SetActive(true);
                 _nameText.gameObject.SetActive(true);
                 _attributeImage.gameObject.SetActive(true);
@@ -76,6 +80,8 @@ public class CardItem : MonoBehaviour
             case Frame.PendulumFusionMonster:
             case Frame.PendulumSynchroMonster:
             case Frame.PendulumXyzMonster:
+                _rawImage.gameObject.SetActive(false);
+                _xyzRawImage.gameObject.SetActive(true);
                 _frameImage.gameObject.SetActive(true);
                 _nameText.gameObject.SetActive(true);
                 _attributeImage.gameObject.SetActive(true);
@@ -89,6 +95,8 @@ public class CardItem : MonoBehaviour
                 break;
 
             case Frame.LinkMonster:
+                _rawImage.gameObject.SetActive(true);
+                _xyzRawImage.gameObject.SetActive(false);
                 _frameImage.gameObject.SetActive(true);
                 _nameText.gameObject.SetActive(true);
                 _attributeImage.gameObject.SetActive(true);
@@ -101,7 +109,6 @@ public class CardItem : MonoBehaviour
                 _descriptionTextBaseBottom.SetActive(true);
                 break;
 
-
             case Frame.NormalSpell:
             case Frame.QuickPlaySpell:
             case Frame.ContinuousSpell:
@@ -111,6 +118,8 @@ public class CardItem : MonoBehaviour
             case Frame.NormalTrap:
             case Frame.ContinuousTrap:
             case Frame.CounterTrap:
+                _rawImage.gameObject.SetActive(true);
+                _xyzRawImage.gameObject.SetActive(false);
                 _frameImage.gameObject.SetActive(true);
                 _nameText.gameObject.SetActive(true);
                 _attributeImage.gameObject.SetActive(false);
@@ -124,6 +133,8 @@ public class CardItem : MonoBehaviour
                 break;
 
             case Frame.Token:
+                _rawImage.gameObject.SetActive(true);
+                _xyzRawImage.gameObject.SetActive(false);
                 _frameImage.gameObject.SetActive(true);
                 _nameText.gameObject.SetActive(true);
                 _attributeImage.gameObject.SetActive(true);
@@ -158,6 +169,20 @@ public class CardItem : MonoBehaviour
         UpdatePendulumNumRedUI();
         UpdateLinkNumUI();
     }
+
+    #region RawImage
+    public void UpdateRawImage(Texture texture)
+    {
+        _rawImage.texture = texture;
+    }
+    #endregion RawImage
+
+    #region XyzRawImage
+    public void UpdateXyzRawImage(Texture texture)
+    {
+        _xyzRawImage.texture = texture;
+    }
+    #endregion XyzRawImage
 
     #region Frame
     public void UpdateFrameInfo(Frame frame)
