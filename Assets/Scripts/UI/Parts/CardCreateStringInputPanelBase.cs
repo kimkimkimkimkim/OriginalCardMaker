@@ -23,4 +23,9 @@ public class CardCreateStringInputPanelBase : MonoBehaviour
             })
             .Subscribe();
     }
+
+    public InputField GetInputField()
+    {
+        return _inputField;
+    }
 }

@@ -10,7 +10,7 @@
     public string defence { get; set; }
     public string monsterText { get; set; }
     public string text { get; set; }
-    public TextSize textSize { get; set; }
+    public TextSize textSize { get; set; } = TextSize.Medium;
     public string pendulumText { get; set; }
     public PendulumTextSize pendulumTextSize { get; set; }
     public PendulumNumBlue pendulumNumBlue { get; set; }

@@ -12,14 +12,16 @@ public class CardCreateEnumInputPanelBase<T> where T : Enum
     private ToggleGroup toggleGroup;
     private List<T> targetList = new List<T>();
     private bool isMultipleSelection;
+    private Action<T> callBackAction;
 
-    public void RefreshPanel(CardItem cardItem,Text text,InfiniteScroll infiniteScroll,ToggleGroup toggleGroup, bool isMultipleSelection = false)
+    public void RefreshPanel(CardItem cardItem,Text text,InfiniteScroll infiniteScroll,ToggleGroup toggleGroup, bool isMultipleSelection, Action<T> callBackAction)
     {
         this.cardItem = cardItem;
         this.infiniteScroll = infiniteScroll;
         this.toggleGroup = toggleGroup;
         this.targetList = Enum.GetValues(typeof(T)).Cast<T>().ToList();
         this.isMultipleSelection = isMultipleSelection;
+        this.callBackAction = callBackAction;
 
         text.text = TextUtil.GetDescriptionAttribute<T>();
         infiniteScroll.Clear();
@@ -51,6 +53,7 @@ public class CardCreateEnumInputPanelBase<T> where T : Enum
             }
 
             UpdateCardItem(cardEnum);
+            if (callBackAction != null) callBackAction(cardEnum);
         });
     }
 
@@ -78,6 +81,30 @@ public class CardCreateEnumInputPanelBase<T> where T : Enum
         else if(cardEnum is NameColor)
         {
             return (int)card.nameColor == value;
+        }
+        else if(cardEnum is NameSize)
+        {
+            return (int)card.nameSize == value;
+        }
+        else if(cardEnum is TextSize)
+        {
+            return (int)card.textSize == value;
+        }
+        else if(cardEnum is PendulumTextSize) 
+        {
+            return (int)card.pendulumTextSize == value;
+        }
+        else if(cardEnum is PendulumNumBlue)
+        {
+            return (int)card.pendulumNumBlue == value;
+        }
+        else if(cardEnum is PendulumNumRed)
+        {
+            return (int)card.pendulumNumRed == value;
+        }
+        else if(cardEnum is LinkNum)
+        {
+            return (int)card.linkNum == value;
         }
 
         return false;
@@ -110,6 +137,36 @@ public class CardCreateEnumInputPanelBase<T> where T : Enum
         {
             cardItem.UpdateNameColorInfo((NameColor)value);
             cardItem.UpdateNameColorUI();
+        }
+        else if(cardEnum is NameSize)
+        {
+            cardItem.UpdateNameSizeInfo((NameSize)value);
+            cardItem.UpdateNameSizeUI();
+        }
+        else if (cardEnum is TextSize)
+        {
+            cardItem.UpdateTextSizeInfo((TextSize)value);
+            cardItem.UpdateTextSizeUI();
+        }
+        else if (cardEnum is PendulumTextSize)
+        {
+            cardItem.UpdatePendulumTextSizeInfo((PendulumTextSize)value);
+            cardItem.UpdatePendulumTextSizeUI();
+        }
+        else if (cardEnum is PendulumNumBlue)
+        {
+            cardItem.UpdatePendulumNumBlueInfo((PendulumNumBlue)value);
+            cardItem.UpdatePendulumNumBlueUI();
+        }
+        else if (cardEnum is PendulumNumRed)
+        {
+            cardItem.UpdatePendulumNumRedInfo((PendulumNumRed)value);
+            cardItem.UpdatePendulumNumRedUI();
+        }
+        else if (cardEnum is LinkNum)
+        {
+            cardItem.UpdateLinkNumInfo((LinkNum)value);
+            cardItem.UpdateLinkNumUI();
         }
     }
 }

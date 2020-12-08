@@ -10,9 +10,9 @@ public class CardCreateEnumInputPanel : MonoBehaviour
     [SerializeField] protected InfiniteScroll _infiniteScroll;
     [SerializeField] protected ToggleGroup _toggleGroup;
 
-    public void RefreshPanel<T>(CardItem cardItem, bool isMultipleSelection = false) where T : Enum
+    public void RefreshPanel<T>(CardItem cardItem, bool isMultipleSelection = false,Action<T> callBackAction = null) where T : Enum
     {
         var cardCreateInputPanelBase = new CardCreateEnumInputPanelBase<T>();
-        cardCreateInputPanelBase.RefreshPanel(cardItem,_titleText,_infiniteScroll,_toggleGroup,isMultipleSelection);
+        cardCreateInputPanelBase.RefreshPanel(cardItem,_titleText,_infiniteScroll,_toggleGroup,isMultipleSelection,callBackAction);
     }
 }

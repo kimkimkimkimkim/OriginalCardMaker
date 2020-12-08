@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using GameBase;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +11,7 @@ public class CardItem : MonoBehaviour
     [SerializeField] protected Sprite[] _levelSpriteList;
     [SerializeField] protected Sprite[] _rankSpriteList;
     [SerializeField] protected Image[] _linkPositionImageList;
+    [SerializeField] protected Sprite[] _linkNumSpriteList;
     [SerializeField] protected GameObject _statusBase;
     [SerializeField] protected GameObject _linkStatusBase;
     [SerializeField] protected GameObject _linkPositionBase;
@@ -24,6 +23,14 @@ public class CardItem : MonoBehaviour
     [SerializeField] protected Image _levelImage;
     [SerializeField] protected Text _nameText;
     [SerializeField] protected Text _attackText;
+    [SerializeField] protected Text _linkAttackText;
+    [SerializeField] protected Text _defenceText;
+    [SerializeField] protected Text _monsterDescriptionText;
+    [SerializeField] protected Text _descriptionText;
+    [SerializeField] protected Text _pendulumText;
+    [SerializeField] protected Text _pendulumNumBlueText;
+    [SerializeField] protected Text _pendulumNumRedText;
+    [SerializeField] protected Image _linkNumImage;
 
     private CardInfo card = new CardInfo();
 
@@ -35,11 +42,6 @@ public class CardItem : MonoBehaviour
     public CardInfo GetCardInfo()
     {
         return card;
-    }
-
-    public void UpdateUI()
-    {
-
     }
 
     /// <summary>
@@ -145,6 +147,16 @@ public class CardItem : MonoBehaviour
         UpdateAttributeUI();
         UpdateLevelUI();
         UpdateLinkPositionUI();
+        UpdateAttackUI();
+        UpdateDefenceUI();
+        UpdateMonsterTextUI();
+        UpdateTextUI();
+        UpdateTextSizeUI();
+        UpdatePendulumTextUI();
+        UpdatePendulumTextSizeUI();
+        UpdatePendulumNumBlueUI();
+        UpdatePendulumNumRedUI();
+        UpdateLinkNumUI();
     }
 
     #region Frame
@@ -226,26 +238,7 @@ public class CardItem : MonoBehaviour
 
     public void UpdateNameColorUI()
     {
-        _nameText.color = GetColor(card.nameColor);
-    }
-
-    private Color GetColor(NameColor nameColor)
-    {
-        switch (nameColor)
-        {
-            case NameColor.Black:
-                return new Color(0.0f, 0.0f, 0.0f);
-            case NameColor.White:
-                return new Color(0.95f, 0.95f, 0.95f);
-            case NameColor.Shilver:
-                return new Color(0.77f, 0.77f, 0.77f);
-            case NameColor.Gold:
-                return new Color(0.77f, 0.77f, 0.0f);
-            case NameColor.Red:
-                return new Color(0.77f, 0.05f, 0.05f);
-            default:
-                return new Color(0.0f, 0.0f, 0.0f);
-        }
+        _nameText.color = CardUtil.GetColor(card.nameColor);
     }
     #endregion NameColor
 
@@ -257,20 +250,7 @@ public class CardItem : MonoBehaviour
 
     public void UpdateNameSizeUI()
     {
-        _nameText.fontSize = GetSize(card.nameSize);
-    }
-
-    private int GetSize(NameSize nameSize)
-    {
-        switch (nameSize)
-        {
-            case NameSize.Medium:
-                return 70;
-            case NameSize.Small:
-                return 50;
-            default:
-                return 70;
-        }
+        _nameText.fontSize = CardUtil.GetSize(card.nameSize);
     }
     #endregion NameSize
 
@@ -283,6 +263,111 @@ public class CardItem : MonoBehaviour
     public void UpdateAttackUI()
     {
         _attackText.text = card.attack;
+        _linkAttackText.text = card.attack;
     }
     #endregion Attack
+
+    #region Defence
+    public void UpdateDefenceInfo(string defence)
+    {
+        card.defence = defence;
+    }
+
+    public void UpdateDefenceUI()
+    {
+        _defenceText.text = card.defence;
+    }
+    #endregion Defence
+
+    #region MonsterText
+    public void UpdateMonsterTextInfo(string monsterText)
+    {
+        card.monsterText = monsterText;
+    }
+
+    public void UpdateMonsterTextUI()
+    {
+        _monsterDescriptionTextBase.SetActive(!String.IsNullOrEmpty(card.monsterText));
+        _monsterDescriptionText.text = card.monsterText;
+    }
+    #endregion MonsterText
+
+    #region Text
+    public void UpdateTextInfo(string text) {
+        card.text = text;
+    }
+
+    public void UpdateTextUI() 
+    {
+        _descriptionText.text = card.text;
+    }
+    #endregion Text
+
+    #region TextSize
+    public void UpdateTextSizeInfo(TextSize textSize)
+    {
+        card.textSize = textSize;
+    }
+
+    public void UpdateTextSizeUI()
+    {
+        _descriptionText.fontSize = CardUtil.GetSize(card.textSize);
+    }
+    #endregion TextSize
+
+    #region PendulumText
+    public void UpdatePendulumTextInfo(string pendulumText)
+    {
+        card.pendulumText = pendulumText;
+    }
+
+    public void UpdatePendulumTextUI() 
+    {
+        _pendulumText.text = card.pendulumText;
+    }
+    #endregion PendulumText
+
+    #region PendulumTextSize
+    public void UpdatePendulumTextSizeInfo(PendulumTextSize pendulumTextSize) {
+        card.pendulumTextSize = pendulumTextSize;
+    }
+
+    public void UpdatePendulumTextSizeUI() {
+        _pendulumText.fontSize = CardUtil.GetSize(card.pendulumTextSize);
+    }
+    #endregion PendulumTextSize
+
+    #region PendulumNumBlue
+    public void UpdatePendulumNumBlueInfo(PendulumNumBlue pendulumNumBlue) {
+        card.pendulumNumBlue = pendulumNumBlue;
+    }
+
+    public void UpdatePendulumNumBlueUI()
+    {
+        _pendulumNumBlueText.text = ((int)card.pendulumNumBlue).ToString();
+    }
+    #endregion PendulumNumBlue
+
+    #region PendulumNumRed
+    public void UpdatePendulumNumRedInfo(PendulumNumRed pendulumNumRed)
+    {
+        card.pendulumNumRed = pendulumNumRed;
+    }
+
+    public void UpdatePendulumNumRedUI()
+    {
+        _pendulumNumRedText.text = ((int)card.pendulumNumRed).ToString();
+    }
+    #endregion PendulumNumRed
+
+    #region LinkNum
+    public void UpdateLinkNumInfo(LinkNum linkNum)
+    {
+        card.linkNum = linkNum;
+    }
+
+    public void UpdateLinkNumUI() {
+        _linkNumImage.sprite = _linkNumSpriteList[(int)card.linkNum];
+    }
+    #endregion
 }
