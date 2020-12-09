@@ -67,6 +67,11 @@ namespace GameBase
                     rect.position += new Vector3(-FRAME_INITIAL_POSOTION, 0.0f, 0.0f);
                     rect.DOAnchorPosX(-FRAME_IN_ANCHOR_POSOTION, MOVING_TIME);
                     break;
+                case DialogAnimationType.Bottom:
+                    var initialPos = rect.localPosition;
+                    rect.localPosition += new Vector3(0.0f, -Screen.height, 0.0f);
+                    rect.DOLocalMove(initialPos, MOVING_TIME);
+                    break;
             }
         }
 
@@ -89,6 +94,9 @@ namespace GameBase
                 case DialogAnimationType.Left:
                     position = UIManager.Instance.dialogParant.position.x - FRAME_OUT_ANCHOR_POSITION;
                     return rect.DOAnchorPosX(position, MOVING_TIME).OnCompleteAsObservable().AsUnitObservable();
+                case DialogAnimationType.Bottom:
+                    position = UIManager.Instance.dialogParant.position.y - FRAME_OUT_ANCHOR_POSITION;
+                    return rect.DOAnchorPosY(position, MOVING_TIME).OnCompleteAsObservable().AsUnitObservable();
                 case DialogAnimationType.None:
                 default:
                     return Observable.ReturnUnit();
@@ -102,5 +110,6 @@ namespace GameBase
         Center = 1,
         Right = 2,
         Left = 3,
+        Bottom = 4,
     }
 }
