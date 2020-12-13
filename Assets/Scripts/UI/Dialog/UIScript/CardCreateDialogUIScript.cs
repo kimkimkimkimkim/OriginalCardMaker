@@ -11,8 +11,10 @@ using GameBase;
 public class CardCreateDialogUIScript : DialogBase {
 
     [SerializeField] protected Button _closeButton;
+    [SerializeField] protected Button _okButton;
     [SerializeField] protected Button _pickImageButton;
     [SerializeField] protected Button _pickXyzImageButton;
+    [SerializeField] protected RenderTexture _cardRenderTexture;
     [SerializeField] protected RawImage _rawImage;
     [SerializeField] protected RawImage _xyzRawImage;
     [SerializeField] protected Transform _cardItemBase;
@@ -101,13 +103,26 @@ public class CardCreateDialogUIScript : DialogBase {
             })
             .Subscribe();
 
+        _okButton.OnClickIntentAsObservable()
+            .Do(_ =>
+            {
+                var texture = new Texture2D(_cardRenderTexture.width, _cardRenderTexture.height, TextureFormat.ARGB32, false, false);
+                RenderTexture.active = _cardRenderTexture;
+                texture.ReadPixels(new Rect(0, 0, _cardRenderTexture.width, _cardRenderTexture.height), 0, 0);
+                texture.Apply();
+
+                // Save the screenshot to Gallery/Photos
+                NativeGallery.Permission permission = NativeGallery.SaveImageToGallery(texture, "GalleryTest", "Image.png", (success, path) => Debug.Log("Media save result: " + success + " " + path));
+            })
+            .Subscribe();
+
         CreateInputPanel();
 
     }
 
     private void CreateCardItem()
     {
-        cardItem = UIManager.Instance.CreateContent<CardItem>(_cardItemBase);
+        cardItem = PhotographManager.Instance.CreateCardItem();
         cardItem.UpdateAllUI();
     }
 

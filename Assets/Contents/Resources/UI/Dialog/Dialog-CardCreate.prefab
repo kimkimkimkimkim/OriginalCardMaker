@@ -255,9 +255,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6317492636634266823}
   - component: {fileID: 6094038179775555217}
-  - component: {fileID: 6131127836141459964}
+  - component: {fileID: 7463377449570041683}
   m_Layer: 5
-  m_Name: CardItemBase
+  m_Name: CardRenderTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -290,7 +290,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1883173454397459488}
   m_CullTransparentMesh: 0
---- !u!114 &6131127836141459964
+--- !u!114 &7463377449570041683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -299,34 +299,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883173454397459488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbe6c89a1a58a44cd999fdd07cbd657e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _frameSpriteList: []
-  _attributeSpriteList: []
-  _levelSpriteList: []
-  _rankSpriteList: []
-  _linkPositionImageList: []
-  _linkNumSpriteList: []
-  _statusBase: {fileID: 0}
-  _linkStatusBase: {fileID: 0}
-  _linkPositionBase: {fileID: 0}
-  _pendulumBase: {fileID: 0}
-  _monsterDescriptionTextBase: {fileID: 0}
-  _descriptionTextBaseBottom: {fileID: 0}
-  _frameImage: {fileID: 0}
-  _attributeImage: {fileID: 0}
-  _levelImage: {fileID: 0}
-  _nameText: {fileID: 0}
-  _attackText: {fileID: 0}
-  _linkAttackText: {fileID: 0}
-  _defenceText: {fileID: 0}
-  _monsterDescriptionText: {fileID: 0}
-  _descriptionText: {fileID: 0}
-  _pendulumText: {fileID: 0}
-  _pendulumNumBlueText: {fileID: 0}
-  _pendulumNumRedText: {fileID: 0}
-  _linkNumImage: {fileID: 0}
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 8400000, guid: 846ce30724f014919bae401deba5d6c5, type: 2}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &2256399409221076145
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,12 +502,15 @@ MonoBehaviour:
   _dialogFrame: {fileID: 880691556557023759}
   _grayOutImage: {fileID: 2377398881886995435}
   _closeButton: {fileID: 6101868311694506463}
+  _okButton: {fileID: 5897790661673015484}
   _pickImageButton: {fileID: 8404876835910811428}
   _pickXyzImageButton: {fileID: 1824754806747844365}
+  _cardRenderTexture: {fileID: 8400000, guid: 846ce30724f014919bae401deba5d6c5, type: 2}
   _rawImage: {fileID: 674230379342675767}
   _xyzRawImage: {fileID: 3728080676251895524}
   _cardItemBase: {fileID: 6317492636634266823}
   _inputPanelBase: {fileID: 8922710865642831328}
+  _tempRawImage: {fileID: 0}
 --- !u!1 &2990803542850075869
 GameObject:
   m_ObjectHideFlags: 0
