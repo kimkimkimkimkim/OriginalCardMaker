@@ -104,16 +104,8 @@ public class CardCreateDialogUIScript : DialogBase {
             .Subscribe();
 
         _okButton.OnClickIntentAsObservable()
-            .Do(_ =>
-            {
-                var texture = new Texture2D(_cardRenderTexture.width, _cardRenderTexture.height, TextureFormat.ARGB32, false, false);
-                RenderTexture.active = _cardRenderTexture;
-                texture.ReadPixels(new Rect(0, 0, _cardRenderTexture.width, _cardRenderTexture.height), 0, 0);
-                texture.Apply();
-
-                // Save the screenshot to Gallery/Photos
-                NativeGallery.Permission permission = NativeGallery.SaveImageToGallery(texture, "GalleryTest", "Image.png", (success, path) => Debug.Log("Media save result: " + success + " " + path));
-            })
+            .SelectMany(_ => UIManager.Instance.CloseDialogObservable())
+            .SelectMany(_ => CardConfirmDialogFactory.Create(new CardConfirmDialogRequest()))
             .Subscribe();
 
         CreateInputPanel();
