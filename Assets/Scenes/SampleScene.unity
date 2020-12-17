@@ -535,6 +535,7 @@ GameObject:
   - component: {fileID: 1234254635}
   - component: {fileID: 1234254636}
   - component: {fileID: 1234254637}
+  - component: {fileID: 1234254638}
   m_Layer: 0
   m_Name: ManagerObject
   m_TagString: Untagged
@@ -616,6 +617,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43af0064daf004ed695354777d8126bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1234254638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234254632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930401853a41b4e6e9bcde0c0cf7e740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isTestAdUnitId: 1
+  BOTTOM_BANNER_AD_UNIT_ID_IOS: ca-app-pub-7228877379141040/9870700133
+  BOTTOM_BANNER_AD_UNIT_ID_ANDROID: ca-app-pub-7228877379141040/6842239785
+  CENTER_BANNER_AD_UNIT_ID_IOS: ca-app-pub-7228877379141040/2767263403
+  CENTER_BANNER_AD_UNIT_ID_ANDROID: ca-app-pub-7228877379141040/4216076443
+  INTERSTITIAL_AD_UNIT_ID_IOS: ca-app-pub-7228877379141040/8912841687
+  INTERSTITIAL_AD_UNIT_ID_ANDROID: ca-app-pub-7228877379141040/2665345141
 --- !u!1 &1254315506
 GameObject:
   m_ObjectHideFlags: 0

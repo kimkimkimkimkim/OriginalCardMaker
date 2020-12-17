@@ -36,6 +36,7 @@ public class CardConfirmDialogUIScript : DialogBase
                 }
             })
             .Where(isContinue => isContinue)
+            .Do(_ => MobileAdsManager.Instance.TryShowInterstitial())
             .SelectMany(_ => UIManager.Instance.CloseDialogObservable())
             .Do(_ => {
                 if (onClickClose != null)
