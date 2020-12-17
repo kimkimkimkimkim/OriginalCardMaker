@@ -36,6 +36,10 @@ public class FooterManager : MonoBehaviour
             .Subscribe();
 
         _boxButton.OnClickAsObservable()
+            .SelectMany(_ => CommonDialogFactory.Create(new CommonDialogRequest() { title = "お知らせ", body = "Box機能は近日実装予定です" }))
+            .Subscribe();
+        /*
+        _boxButton.OnClickAsObservable()
             .Do(_ => UIManager.Instance.CloseWindow(forceCloseParent: true, animationType: WindowAnimationType.FooterWindowLeft))
             .Do(_ =>
             {
@@ -44,6 +48,7 @@ public class FooterManager : MonoBehaviour
             })
             .SelectMany(_ => BoxWindowFactory.Create(new BoxWindowRequest()))
             .Subscribe();
+        */           
 
         // ホームボタンを押したことにする
         // 確実に動作させるため1フレーム後に実行
