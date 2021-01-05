@@ -75,11 +75,11 @@ public static class CardUtil
         switch (nameSize)
         {
             case NameSize.Medium:
-                return 70;
-            case NameSize.Small:
                 return 50;
+            case NameSize.Small:
+                return 40;
             default:
-                return 70;
+                return 50;
         }
     }
 
@@ -88,13 +88,13 @@ public static class CardUtil
         switch (textSize)
         {
             case TextSize.Large:
-                return 37;
+                return 35;
             case TextSize.Medium:
-                return 31;
+                return 30;
             case TextSize.Small:
-                return 23;
+                return 24;
             default:
-                return 31;
+                return 30;
         }
     }
 
