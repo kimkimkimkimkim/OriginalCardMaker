@@ -36,8 +36,8 @@ public class CommonDialogResponse
 
 public enum CommonDialogType
 {
-    Confirm,
-    Selection,
+    Confirm, // OKだけ
+    Selection, // Yes,Noの選択
 }
 
 public enum CommonDialogResponseType

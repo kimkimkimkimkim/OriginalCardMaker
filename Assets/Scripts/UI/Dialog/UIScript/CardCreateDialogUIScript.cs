@@ -246,13 +246,20 @@ public class CardCreateDialogUIScript : DialogBase {
 
                 // If a procedural texture is not destroyed manually, 
                 // it will only be freed after a scene change
-                Destroy(texture, 5f);
+                // Destroy(texture, 5f);
             }
             else
             {
                 Debug.Log("=== pathがありません ===");
             }
         });
+
+        if(permission == NativeCamera.Permission.Denied)
+        {
+            // カメラ使用許可が拒否されています
+            CommonDialogFactory.Create(new CommonDialogRequest() { title = "確認", body = "カメラの使用を許可してください" })
+                .Subscribe();
+        }
     }
 
     /// <summary>
@@ -279,13 +286,20 @@ public class CardCreateDialogUIScript : DialogBase {
 
                 Crop(texture,aspectRatio,callBackAction);
 
-                Destroy(texture, 5f);
+                // Destroy(texture, 5f);
             }
             else
             {
                 Debug.Log("==== pathがありません ====");
             }
         }, "Select a PNG image", "image/png");
+
+        if (permission == NativeGallery.Permission.Denied)
+        {
+            // アルバム使用許可が拒否されています
+            CommonDialogFactory.Create(new CommonDialogRequest() { title = "確認", body = "アルバムの使用を許可してください"})
+                .Subscribe();
+        }
     }
 
     private void Crop(Texture2D texture, float aspectRatio, Action<Texture> callBackAction)
