@@ -14,6 +14,8 @@ namespace GameBase {
         [SerializeField] protected string CENTER_BANNER_AD_UNIT_ID_ANDROID;
         [SerializeField] protected string INTERSTITIAL_AD_UNIT_ID_IOS;
         [SerializeField] protected string INTERSTITIAL_AD_UNIT_ID_ANDROID;
+        [SerializeField] protected string REWARD_AD_UNIT_ID_IOS;
+        [SerializeField] protected string REWARD_AD_UNIT_ID_ANDROID;
 
         private BannerView bannerView;
         private InterstitialAd interstitial;
@@ -268,9 +270,9 @@ namespace GameBase {
         private void RequestRewarded()
         {
             #if UNITY_ANDROID
-                string adUnitId = _isTestAdUnitId ? "ca-app-pub-3940256099942544/5224354917" : "ca-app-pub-1070619740695797/7891222877";
+                string adUnitId = _isTestAdUnitId ? "ca-app-pub-3940256099942544/5224354917" : REWARD_AD_UNIT_ID_ANDROID;
             #elif UNITY_IPHONE
-                string adUnitId = _isTestAdUnitId ? "ca-app-pub-3940256099942544/1712485313" : "ca-app-pub-1070619740695797/4949187151";
+                string adUnitId = _isTestAdUnitId ? "ca-app-pub-3940256099942544/1712485313" : REWARD_AD_UNIT_ID_IOS;
             #else
                 string adUnitId = "unexpected_platform";
             #endif

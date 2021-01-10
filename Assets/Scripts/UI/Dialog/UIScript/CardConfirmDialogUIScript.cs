@@ -15,6 +15,7 @@ public class CardConfirmDialogUIScript : DialogBase
     [SerializeField] protected Button _saveButton;
     [SerializeField] protected Button _shareButton;
     [SerializeField] protected RenderTexture _cardRenderTexture;
+    [SerializeField] protected Text _todaySavedCountText;
 
     private bool isSaved = false;
 
@@ -48,7 +49,62 @@ public class CardConfirmDialogUIScript : DialogBase
             .Subscribe();
 
         _saveButton.OnClickIntentAsObservable()
-            .Do(_ =>
+            .Do(_ => {
+                if (isSaved)
+                {
+                    CommonDialogFactory.Create(new CommonDialogRequest() { body = "保存済みです" }).Subscribe();
+                    return;
+                }
+
+                var todaySavedCount = PlayerPrefsUtil.GetTodaySavedCount();
+                var canSaved = todaySavedCount != ConstUtil.MAX_TODAY_SAVE_COUNT || PlayerPrefsUtil.GetIsFreeTodaySaveCount();
+                if (canSaved)
+                {
+                    // 保存可能なら保存する
+                    SaveImage();
+                }
+                else
+                {
+                    // 保存不可なら、広告再生許可のダイアログを表示
+                    CommonDialogFactory.Create(new CommonDialogRequest(){
+                        title = "確認",
+                        body = "広告を再生して本日の保存回数制限を解除します",
+                        type = CommonDialogType.Selection,
+                    })
+                        .Where(res => res.responseType == CommonDialogResponseType.Yes)
+                        .Do(res =>
+                        {
+                            var rewardAction = new Action(() => {
+                                PlayerPrefsUtil.SetIsFreeTodaySaveCount(true);
+                                SaveImage();
+                            });
+
+                            MobileAdsManager.Instance.TryShowRewarded(rewardAction);
+                        })
+                        .Subscribe();
+                }
+
+            })
+            .Subscribe();
+
+        _shareButton.OnClickIntentAsObservable()
+            .Do(_ => StartCoroutine(Share()))
+            .Subscribe();
+
+        RefreshTodaySavedCountText();
+    }
+
+    private void RefreshTodaySavedCountText()
+    {
+        var isFree = PlayerPrefsUtil.GetIsFreeTodaySaveCount();
+        var todaySavedCount = PlayerPrefsUtil.GetTodaySavedCount();
+        _todaySavedCountText.text = isFree ? "本日の保存回数制限解除済み" : $"本日の保存可能回数\n{todaySavedCount} / {ConstUtil.MAX_TODAY_SAVE_COUNT}";
+    }
+
+    private void SaveImage()
+    {
+        Observable.ReturnUnit()
+            .Select(res =>
             {
                 var texture = new Texture2D(_cardRenderTexture.width, _cardRenderTexture.height, TextureFormat.ARGB32, false, false);
                 RenderTexture.active = _cardRenderTexture;
@@ -58,13 +114,22 @@ public class CardConfirmDialogUIScript : DialogBase
                 // Save the screenshot to Gallery/Photos
                 NativeGallery.Permission permission = NativeGallery.SaveImageToGallery(texture, "GalleryTest", "Image.png", (success, path) => Debug.Log("Media save result: " + success + " " + path));
 
-                isSaved = true;
+                return permission;
+            }) 
+            .SelectMany(res =>
+            {
+                if (res == NativeGallery.Permission.Granted)
+                {
+                    isSaved = true;
+                    PlayerPrefsUtil.AddTodaySavedCount();
+                    return CommonDialogFactory.Create(new CommonDialogRequest() { body = "画像を保存しました", noButtonText = "閉じる" }).AsUnitObservable();
+                }
+                else
+                {
+                    return CommonDialogFactory.Create(new CommonDialogRequest() { body = "画像の保存に失敗しました\nアルバムへの許可がされているかどうか確認してみてください", noButtonText = "閉じる" }).AsUnitObservable();
+                }
             })
-            .SelectMany(_ => CommonDialogFactory.Create(new CommonDialogRequest() { body = "画像を保存しました", noButtonText = "閉じる"}))
-            .Subscribe();
-
-        _shareButton.OnClickIntentAsObservable()
-            .Do(_ => StartCoroutine(Share()))
+            .Do(_ => RefreshTodaySavedCountText())
             .Subscribe();
     }
 
