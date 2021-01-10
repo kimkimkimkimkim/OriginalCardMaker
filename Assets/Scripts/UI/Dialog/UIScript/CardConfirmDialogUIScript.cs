@@ -37,7 +37,11 @@ public class CardConfirmDialogUIScript : DialogBase
                 }
             })
             .Where(isContinue => isContinue)
-            .Do(_ => MobileAdsManager.Instance.TryShowInterstitial())
+            .Do(_ =>
+            {
+                var isShow = UnityEngine.Random.Range(0, 3) == 1;
+                if(isShow) MobileAdsManager.Instance.TryShowInterstitial();
+            })
             .SelectMany(_ => UIManager.Instance.CloseDialogObservable())
             .Do(_ => {
                 if (onClickClose != null)
