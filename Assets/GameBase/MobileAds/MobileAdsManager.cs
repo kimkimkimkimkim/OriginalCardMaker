@@ -26,9 +26,9 @@ namespace GameBase {
         void Start()
         {
             #if UNITY_ANDROID
-                string appId = "ca-app-pub-1070619740695797~9580523736";
+                string appId = "ca-app-pub-7228877379141040~7917671822";
             #elif UNITY_IPHONE
-                string appId = "ca-app-pub-1070619740695797~7031393778";
+                string appId = "ca-app-pub-7228877379141040~5855627022";
             #else
                 string appId = "unexpected_platform";
             #endif
