@@ -10,6 +10,15 @@ public class PhotographManager : SingletonMonoBehaviour<PhotographManager>
 
     public CardItem CreateCardItem()
     {
+        // すでに存在していたら削除
+        if(_cardItemBase.transform.childCount > 0)
+        {
+            foreach (Transform t in _cardItemBase.transform)
+            {
+                GameObject.Destroy(t.gameObject);
+            }
+        }
+
         return UIManager.Instance.CreateContent<CardItem>(_cardItemBase);
     }
 }
