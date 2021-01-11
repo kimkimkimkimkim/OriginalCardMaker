@@ -83,7 +83,12 @@ public class CardConfirmDialogUIScript : DialogBase
                                 SaveImage();
                             });
 
-                            MobileAdsManager.Instance.TryShowRewarded(rewardAction);
+                            var isLoaded = MobileAdsManager.Instance.TryShowRewarded(rewardAction);
+
+                            if (!isLoaded)
+                            {
+                                CommonDialogFactory.Create(new CommonDialogRequest() { body = "表示する広告がありません。時間を置いて再度お試しください。" }).Subscribe();
+                            }
                         })
                         .Subscribe();
                 }

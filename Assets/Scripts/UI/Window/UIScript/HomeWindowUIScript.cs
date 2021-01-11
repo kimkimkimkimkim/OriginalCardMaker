@@ -24,7 +24,13 @@ public class HomeWindowUIScript : WindowBase
                     PlayerPrefsUtil.SetIsFreeTodaySaveCount(true);
                     ShowRewardButtonIfNeeded();
                 });
-                MobileAdsManager.Instance.TryShowRewarded(action);
+
+                var isLoaded = MobileAdsManager.Instance.TryShowRewarded(action);
+
+                if (!isLoaded)
+                {
+                    CommonDialogFactory.Create(new CommonDialogRequest() { body = "表示する広告がありません。時間を置いて再度お試しください。" }).Subscribe();
+                }
             })
             .Subscribe();
 
