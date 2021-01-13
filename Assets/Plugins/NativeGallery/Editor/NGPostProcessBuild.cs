@@ -10,8 +10,8 @@ public class NGPostProcessBuild
 {
 	private const bool ENABLED = true;
 
-	private const string PHOTO_LIBRARY_USAGE_DESCRIPTION = "The app requires access to Photos to interact with it.";
-	private const string PHOTO_LIBRARY_ADDITIONS_USAGE_DESCRIPTION = "The app requires access to Photos to save media to it.";
+	private const string PHOTO_LIBRARY_USAGE_DESCRIPTION = "これによりライブラリ内の画像を使用することができます。";
+	private const string PHOTO_LIBRARY_ADDITIONS_USAGE_DESCRIPTION = "これによりライブラリに画像を保存したり、ライブラリ内の画像を使用することができます。";
 	private const bool DONT_ASK_LIMITED_PHOTOS_PERMISSION_AUTOMATICALLY_ON_IOS14 = true; // See: https://mackuba.eu/2020/07/07/photo-library-changes-ios-14/
 #if !UNITY_2018_1_OR_NEWER
 	private const bool MINIMUM_TARGET_8_OR_ABOVE = false;

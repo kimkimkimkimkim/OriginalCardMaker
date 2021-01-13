@@ -10,7 +10,7 @@ public class NCPostProcessBuild
 {
 	private const bool ENABLED = true;
 
-	private const string CAMERA_USAGE_DESCRIPTION = "The app requires access to the camera to take pictures or record videos with it.";
+	private const string CAMERA_USAGE_DESCRIPTION = "これによりアプリ内でのカメラの撮影ができるようになります。";
 	private const string MICROPHONE_USAGE_DESCRIPTION = "The app will capture microphone input in the recorded video.";
 
 	[InitializeOnLoadMethod]
