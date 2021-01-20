@@ -174,8 +174,8 @@ public class CardConfirmDialogUIScript : DialogBase
         yield return new WaitForEndOfFrame();
 
         // 投稿する
-        string tweetText = "オリジナル遊戯王カード作ってみたw\n楽しいからみんなもやってみて！";
-        string tweetURL = "https://apps.apple.com/us/app/オリジナルカードメーカー-for-遊/id1547441197";
+        string tweetText = "オリジナル遊戯王カード作ってみたw\n楽しいからみんなもやってみて！\n#遊戯王 #オリカ #オリカメ";
+        string tweetURL = "https://apps.apple.com/us/app/id1547441197?mt=8";
         SocialConnector.PostMessage(SocialConnector.ServiceType.Twitter, tweetText, tweetURL, imagePath);
     }
 
