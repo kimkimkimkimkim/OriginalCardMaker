@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
@@ -176,7 +175,7 @@ public class CardConfirmDialogUIScript : DialogBase
         // 投稿する
         string tweetText = "オリジナル遊戯王カード作ってみたw\n楽しいからみんなもやってみて！\n#遊戯王 #オリカ #オリカメ";
         string tweetURL = "https://apps.apple.com/us/app/id1547441197?mt=8";
-        SocialConnector.PostMessage(SocialConnector.ServiceType.Twitter, tweetText, tweetURL, imagePath);
+        SocialConnector.SocialConnector.Share(tweetText, tweetURL, imagePath);
     }
 
     public override void Back(DialogInfo info)
