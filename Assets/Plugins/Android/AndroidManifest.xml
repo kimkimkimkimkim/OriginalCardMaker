@@ -9,7 +9,7 @@
       </intent-filter>
       <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
     </activity>
-    <provider android:name="android.support.v4.content.FileProvider" android:authorities="com.SANGWOO.OriginalCardMakerOriginalCardMaker.fileprovider" android:exported="false" android:grantUriPermissions="true">
+    <provider android:name="androidx.core.content.FileProvider" android:authorities="com.SANGWOO.OriginalCardMaker.fileprovider" android:exported="false" android:grantUriPermissions="true">
       <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/filepaths"></meta-data>
     </provider>
   </application>
