@@ -173,9 +173,14 @@ public class CardConfirmDialogUIScript : DialogBase
         yield return new WaitForEndOfFrame();
 
         // 投稿する
-        string tweetText = "オリジナル遊戯王カード作ってみたw\n楽しいからみんなもやってみて！\n#遊戯王 #オリカ #オリカメ";
-        string tweetURL = "https://apps.apple.com/us/app/id1547441197?mt=8";
-        SocialConnector.SocialConnector.Share(tweetText, tweetURL, imagePath);
+        string text = "オリジナル遊戯王カード作ってみた!\n" +
+            "楽しいからみんなもやってみて！\n" +
+            "\n" +
+            "iOS: https://apps.apple.com/us/app/id1547441197?mt=8\n" +
+            "Android: http://play.google.com/store/apps/details?id=com.SANGWOO.OriginalCardMaker.apps.maps\n" +
+        	"#遊戯王 #オリカ #オリカメ";
+        string url = "";
+        SocialConnector.SocialConnector.Share(text, url, imagePath);
     }
 
     public override void Back(DialogInfo info)
