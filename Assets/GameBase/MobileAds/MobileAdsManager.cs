@@ -34,7 +34,7 @@ namespace GameBase {
             #endif
 
             // Initialize the Google Mobile Ads SDK.
-            MobileAds.Initialize(appId);
+            MobileAds.Initialize(initStatus => { });
 
             // 広告取得
             RequestBanner();
