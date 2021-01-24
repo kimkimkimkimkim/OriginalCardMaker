@@ -60,7 +60,7 @@ public class CardConfirmDialogUIScript : DialogBase
                 }
 
                 var todaySavedCount = PlayerPrefsUtil.GetTodaySavedCount();
-                var canSaved = todaySavedCount != ConstUtil.MAX_TODAY_SAVE_COUNT || PlayerPrefsUtil.GetIsFreeTodaySaveCount();
+                var canSaved = todaySavedCount < ConstUtil.MAX_TODAY_SAVE_COUNT || PlayerPrefsUtil.GetIsFreeTodaySaveCount();
                 if (canSaved)
                 {
                     // 保存可能なら保存する

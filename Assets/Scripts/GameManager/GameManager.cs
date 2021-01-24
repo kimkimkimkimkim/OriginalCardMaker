@@ -19,7 +19,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         var lastLoginDate = PlayerPrefsUtil.GetLastLoginDate();
 
         var isFirstTimeLoginToday = IsFirstTimeLoginToday(lastLoginDate);
-        if (isFirstTimeLoginToday) PlayerPrefsUtil.SetIsFreeTodaySaveCount(false);
+        if (isFirstTimeLoginToday)
+        {
+            PlayerPrefsUtil.SetIsFreeTodaySaveCount(false);
+            PlayerPrefsUtil.SetTodaySavedCount(0);
+        }
 
         var now = DateTime.Now;
         PlayerPrefsUtil.SetLastLoginDate(now);
