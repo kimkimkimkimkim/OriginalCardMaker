@@ -171,7 +171,7 @@ PlayerSettings:
     Android: com.SANGWOO.OriginalCardMaker
     iPhone: com.SANGWOO.OriginalCardMaker
   buildNumber:
-    iPhone: 1
+    iPhone: 2
   AndroidBundleVersionCode: 2
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 0
