@@ -177,7 +177,7 @@ public class CardConfirmDialogUIScript : DialogBase
             "楽しいからみんなもやってみて！\n" +
             "\n" +
             "iOS: https://apps.apple.com/us/app/id1547441197?mt=8\n" +
-            "Android: http://play.google.com/store/apps/details?id=com.SANGWOO.OriginalCardMaker.apps.maps\n" +
+            "Android: https://play.google.com/store/apps/details?id=com.SANGWOO.OriginalCardMaker\n" +
         	"#遊戯王 #オリカ #オリカメ";
         string url = "";
         SocialConnector.SocialConnector.Share(text, url, imagePath);
