@@ -7,6 +7,7 @@ using System;
 namespace GameBase {
     public class MobileAdsManager : SingletonMonoBehaviour<MobileAdsManager>
     {
+        [SerializeField] protected RectTransform _canvasRT;
         [SerializeField] protected bool _isTestAdUnitId = true;
         [SerializeField] protected string BOTTOM_BANNER_AD_UNIT_ID_IOS;
         [SerializeField] protected string BOTTOM_BANNER_AD_UNIT_ID_ANDROID;
@@ -16,6 +17,20 @@ namespace GameBase {
         [SerializeField] protected string INTERSTITIAL_AD_UNIT_ID_ANDROID;
         [SerializeField] protected string REWARD_AD_UNIT_ID_IOS;
         [SerializeField] protected string REWARD_AD_UNIT_ID_ANDROID;
+
+        public float bannerAdHeight {
+            get
+            {
+                var bannerCanvasRT = GameObject.Find("BANNER(Clone)")?.GetComponent<RectTransform>();
+                if (bannerCanvasRT == null) return 0;
+                
+                var bannerHeight = bannerView?.GetHeightInPixels() ?? 0;
+                if (bannerHeight.Equals(0)) return 0;
+
+                var ratio = bannerHeight / bannerCanvasRT.sizeDelta.y;
+                return _canvasRT.sizeDelta.y * ratio;
+            }
+        }
 
         private BannerView bannerView;
         private InterstitialAd interstitial;
@@ -55,6 +70,8 @@ namespace GameBase {
 
             // Create a 320x50 banner at the top of the screen.
             bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+            var height = bannerView.GetHeightInPixels();
+            Debug.Log($"=== bannerHeight:{height}");
 
             // Called when an ad request has successfully loaded.
             bannerView.OnAdLoaded += HandleOnBannerAdLoaded;

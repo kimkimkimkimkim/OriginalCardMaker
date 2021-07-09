@@ -27,6 +27,7 @@ public class CardCreateDialogUIScript : DialogBase {
         var onClickClose = (Action)info.param["onClickClose"];
 
         CreateCardItem();
+        SetFrameSize();
 
         _closeButton.OnClickIntentAsObservable()
             .SelectMany(_ => UIManager.Instance.CloseDialogObservable())
@@ -109,7 +110,18 @@ public class CardCreateDialogUIScript : DialogBase {
             .Subscribe();
 
         CreateInputPanel();
+    }
 
+    /// <summary>
+    /// 広告のサイズに合わせて下にスペースを空ける
+    /// </summary>
+    private void SetFrameSize()
+    {
+        var bannerAdHeight = MobileAdsManager.Instance.bannerAdHeight;
+        if (bannerAdHeight.Equals(0)) return;
+
+        var rt = _dialogFrame.GetComponent<RectTransform>();
+        rt.offsetMin = new Vector2(0, bannerAdHeight + 8);
     }
 
     private void CreateCardItem()
